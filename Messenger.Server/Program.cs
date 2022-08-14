@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
-using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -30,6 +25,30 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/", () => "Hello Messenger!");
+app.MapGet("/login", [AllowAnonymous] async (HttpContext context,
+    ITokenService tokenService, IUserRepository userRepository) =>
+{
+    UserModel userModel = new UserModel
+    {
+        UserName = context.Request.Query["username"],
+        Password = context.Request.Query["password"],
+    };
+
+    var userDto = userRepository.GetUser(userModel);
+
+    if (userDto == null) return Results.Unauthorized();
+
+    var token = tokenService.BuildToken(
+        builder.Configuration["Jwt:Key"],
+        builder.Configuration["Jwt:Issuer"],
+        userDto
+        );
+
+    return Results.Ok(token);
+
+});
+
+
+app.MapGet("/", [Authorize] () => "Hello Messenger!");
 
 app.Run();

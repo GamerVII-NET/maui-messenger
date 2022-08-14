@@ -1,11 +1,4 @@
-﻿using Messenger.Domains.Models;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-
-public class TokenService : ITokenService
+﻿public class TokenService : ITokenService
 {
 
     private TimeSpan ExpireDuration = new TimeSpan(0, 30, 0);
