@@ -48,7 +48,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Models\" />
 	  <Folder Include="Resources\Images\" />
+	  <Folder Include="ViewModels\Base\" />
+	  <Folder Include="Views\Controls\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Messenger.Domains\Messenger.Domains.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Pages\WelcomePageViewModel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

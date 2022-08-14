@@ -3,12 +3,14 @@
     x:Class="Messenger.Client.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Messenger.Client.Views.Pages"
     xmlns:local="clr-namespace:Messenger.Client"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="False">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+        ContentTemplate="{DataTemplate pages:WelcomePageViewModel}"
+        Route="WelcomePageViewModel" />
+    
 </Shell>
