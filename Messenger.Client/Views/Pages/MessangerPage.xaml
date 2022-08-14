@@ -3,27 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Messenger.Client.ViewModels"
              xmlns:controls="clr-namespace:Messenger.Client.Views.Controls"
-             x:Class="Messenger.Client.Views.Pages.DashboardPage"
-             x:DataType="vm:DashboardPageViewModel">
+             x:Class="Messenger.Client.Views.Pages.MessangerPage"
+             Title="MessangerPage"
+             x:DataType="vm:MessangerPageViewModel">
 
-    
-     <!--// Binding context //--> 
     <ContentPage.BindingContext>
-        <vm:DashboardPageViewModel />
+        <vm:MessangerPageViewModel />
     </ContentPage.BindingContext>
 
-    <!--// Resources //-->
-    <ContentPage.Resources>
-        
-    </ContentPage.Resources>
 
-     <!--// Dashboard content //-->
-    <Grid ColumnDefinitions="60, 1, 400">
+    <!--// Messanger content //-->
+    <Grid ColumnDefinitions="60, 1, 280, *, 350">
 
         <controls:NavigationControl />
 
         <BoxView Grid.Column="1" Color="{StaticResource Gray100}"/>
 
+        <Grid Grid.Column="2">
+
+            <StackLayout>
+                <Entry />
+            </StackLayout>
+
+        </Grid>
+        
+        
+
+        
 
     </Grid>
+
 </ContentPage>

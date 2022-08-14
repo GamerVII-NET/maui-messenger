@@ -10,6 +10,7 @@ namespace Messenger.Client
 
             Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
             Routing.RegisterRoute(nameof(DashboardPage), typeof(DashboardPage));
+            Routing.RegisterRoute(nameof(MessangerPage), typeof(MessangerPage));
         }
     }
 }

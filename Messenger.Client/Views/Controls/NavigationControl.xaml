@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Messenger.Client.Views.Controls.NavigationControl">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NavigationPanelStyle" TargetType="Grid">
+                <Setter Property="Padding" Value="0, 15, 0, 15" />
+            </Style>
+
+            <Style x:Key="NavigationMenuStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="20" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+
+            <Style x:Key="NavigationMenuFooterStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="15" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+            <Style x:Key="NavigationItemStyle" TargetType="ImageButton">
+                <Setter Property="WidthRequest" Value="25" />
+            </Style>
+
+            <Style x:Key="ProfileAvatarImage" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="50" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="40" />
+            </Style>
+
+            <Style x:Key="NavigationSplitterStyle" TargetType="BoxView">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="Color" Value="{StaticResource Gray100}" />
+                <Setter Property="Margin" Value="15, 15, 15, 15" />
+            </Style>
+
+            <Style x:Key="DashboardContentStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderColor" Value="Transparent" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid
+            Grid.Column="0"
+            Style="{StaticResource NavigationPanelStyle}"
+            >
+
+        <StackLayout>
+
+            <StackLayout
+                    Style="{StaticResource NavigationMenuStyle}">
+
+                <ImageButton 
+                    Style="{StaticResource NavigationItemStyle}"
+                    Command="{Binding GoToMessangerPageCommand}"
+                    Source="icon_messages.png" />
+            </StackLayout>
+
+            <BoxView 
+                    Style="{StaticResource NavigationSplitterStyle}"
+                    />
+
+            <StackLayout
+                    Style="{StaticResource NavigationMenuStyle}">
+
+                <ImageButton 
+                    Style="{StaticResource NavigationItemStyle}"
+                    Source="icon_dashboard.png" />
+
+                <ImageButton 
+                    Style="{StaticResource NavigationItemStyle}"
+                    Source="settings.png" />
+            </StackLayout>
+
+        </StackLayout>
+
+        <StackLayout
+                Style="{StaticResource NavigationMenuFooterStyle}">
+
+            <Frame Style="{StaticResource ProfileAvatarImage}">
+                <Image Source="profile.jpg" Aspect="AspectFill"/>
+            </Frame>
+
+        </StackLayout>
+
+
+
+
+    </Grid>
+</ContentView>

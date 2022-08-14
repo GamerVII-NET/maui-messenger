@@ -30,6 +30,7 @@ namespace Messenger.Client.ViewModels
         {
             string token = Preferences.Get("Token", "");
 
+            // ToDo: Make a normal token check
             if (string.IsNullOrEmpty(token) == false)
             {
                 Shell.Current.GoToAsync(nameof(DashboardPage));

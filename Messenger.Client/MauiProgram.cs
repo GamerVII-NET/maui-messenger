@@ -29,6 +29,9 @@ namespace Messenger.Client
             builder.Services.AddSingleton<DashboardPageViewModel>();
             builder.Services.AddSingleton<DashboardPage>();
 
+            builder.Services.AddSingleton<MessangerPageViewModel>();
+            builder.Services.AddSingleton<MessangerPage>();
+
             return builder.Build();
         }
     }

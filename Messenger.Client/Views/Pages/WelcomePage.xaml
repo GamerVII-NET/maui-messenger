@@ -7,6 +7,12 @@
              x:DataType="vm:WelcomePageViewModel"
              >
 
+    <!--// Binding Context //-->
+    <ContentPage.BindingContext>
+        <vm:WelcomePageViewModel />
+    </ContentPage.BindingContext>
+
+    <!--// Resources //--> 
     <ContentPage.Resources>
         <ResourceDictionary>
 
@@ -107,65 +113,61 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-     <!--// Binding Context //--> 
-    <ContentPage.BindingContext>
-        <vm:WelcomePageViewModel />
-    </ContentPage.BindingContext>
-
     <!--// Content //-->
-    <Grid RowDefinitions="450, *">
+    <ScrollView>
+        <Grid RowDefinitions="450, *">
 
-        <Grid
+            <Grid
             Style="{StaticResource HeaderStyle}">
 
-            <StackLayout
+                <StackLayout
                 Style="{StaticResource ContainerLogoStyle}">
-                
-                <Image 
+
+                    <Image 
                     Style="{StaticResource LogoStyle}"
                     Source="logo.png"/>
 
-                <Label 
+                    <Label 
                     Style="{StaticResource LogoContentStyle}"
                     Text="MAUI Messenger"/>
 
-                <Label 
+                    <Label 
                     Style="{StaticResource LogoDescriptionStyle}"
                     Text="A simple messenger built on modern MAUI and NET Micro APIs technologies"/>
-                
-            </StackLayout>
-        </Grid>
 
-        <Frame
+                </StackLayout>
+            </Grid>
+
+            <Frame
             Grid.Row="1"
             Style="{StaticResource FooterStyle}">
 
-            <StackLayout>
-                
-                <Label
+                <StackLayout>
+
+                    <Label
                 Style="{StaticResource HeadlineTextStyle}"
                 Text="Sign Up"/>
 
-                <Label 
+                    <Label 
                     Style="{StaticResource InputLabelStyle}"
                     Text="Login"/>
-                
-                <Entry 
+
+                    <Entry 
                     Style="{StaticResource InputEntryStyle}"
                     Text="{Binding Login}"
                     />
 
-                <Label 
+                    <Label 
                     Style="{StaticResource InputLabelStyle}"
                     Text="Password"/>
 
-                <Entry 
+                    <Entry 
                     IsPassword="True"
                     Style="{StaticResource InputEntryStyle}"
                     Text="{Binding Password}"
                     />
 
-                <Button 
+                    <Button 
                     Style="{StaticResource ButtonStyle}"
                     IsEnabled="{Binding ButtonIsActive}"
                     Command="{Binding LoginCommand}"
@@ -173,12 +175,13 @@
 
 
 
-            </StackLayout>
-            
-            
-        </Frame>
+                </StackLayout>
 
-    </Grid>
+
+            </Frame>
+
+        </Grid>
+    </ScrollView>
 
 
 </ContentPage>
