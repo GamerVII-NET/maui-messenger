@@ -16,7 +16,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.messenger.client</ApplicationId>
-		<ApplicationIdGuid>244FD75A-501E-4FB9-8C70-2C758974D01D</ApplicationIdGuid>
+		<ApplicationIdGuid>46624D93-7645-4005-B0DE-472321EA9736</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -39,6 +39,7 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -48,10 +49,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
-	  <Folder Include="Resources\Images\" />
-	  <Folder Include="ViewModels\Base\" />
-	  <Folder Include="Views\Controls\" />
+	  <None Remove="Resources\Fonts\Inter-Black.ttf" />
+	  <None Remove="Resources\Fonts\Inter-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Inter-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\Inter-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\Inter-Light.ttf" />
+	  <None Remove="Resources\Fonts\Inter-Medium.ttf" />
+	  <None Remove="Resources\Fonts\Inter-Regular.ttf" />
+	  <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\Inter-Thin.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -59,13 +65,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Messenger.Domains\Messenger.Domains.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Views\Pages\WelcomePageViewModel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+	  <Compile Update="Views\Pages\WelcomePage.xaml.cs">
+	    <DependentUpon>WelcomePage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

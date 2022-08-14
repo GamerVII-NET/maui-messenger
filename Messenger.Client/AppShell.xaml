@@ -10,7 +10,7 @@
     Shell.NavBarIsVisible="False">
 
     <ShellContent
-        ContentTemplate="{DataTemplate pages:WelcomePageViewModel}"
+        ContentTemplate="{DataTemplate pages:WelcomePage}"
         Route="WelcomePageViewModel" />
-    
+
 </Shell>

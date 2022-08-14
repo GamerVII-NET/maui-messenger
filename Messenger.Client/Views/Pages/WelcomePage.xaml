@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Messenger.Client.ViewModels"
+             x:Class="Messenger.Client.Views.Pages.WelcomePage"
+             Title="WelcomePageViewModel"
+             x:DataType="vm:WelcomePageViewModel"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <Style x:Key="HeaderStyle" TargetType="Grid">
+                <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+            </Style>
+
+            <Style x:Key="FooterStyle" TargetType="Frame">
+                <Setter Property="Margin" Value="20, -120, 20, 0" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow
+                            Brush="Black"
+                            Offset="0, 0"
+                            Radius="80"
+                            Opacity="0.8" />
+                    </Setter.Value>
+                </Setter>
+
+            </Style>
+
+            <Style x:Key="ContainerLogoStyle" TargetType="StackLayout">
+                <Setter Property="Margin" Value="0, 40, 0, 0" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+
+            <Style x:Key="LogoStyle" TargetType="Image">
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="WidthRequest" Value="120" />
+            </Style>
+
+            <Style x:Key="LogoContentStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="InterSemiBold" />
+                <Setter Property="FontSize" Value="26" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Margin" Value="0, 20, 0, 0" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+
+            <Style x:Key="LogoDescriptionStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="InterRegular" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryBackground}" />
+                <Setter Property="Margin" Value="0, 15, 0, 0" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="MaximumWidthRequest" Value="450" />
+                <Setter Property="LineHeight" Value="1.6" />
+            </Style>
+
+            <Style x:Key="HeadlineTextStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="InterSemiBold"/>
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Color x:Key="TextColor">#768194</Color>
+
+            <Style x:Key="InputLabelStyle" TargetType="Label">
+                <Setter Property="Margin" Value="0, 15, 0, 10" />
+                <Setter Property="FontFamily" Value="InterRegular" />
+                <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+
+            </Style>
+
+            <Style x:Key="InputEntryStyle" TargetType="Entry">
+                <Setter Property="HeightRequest" Value="{OnPlatform WinUI=45}" />
+
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="0, 15, 0, 0" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="Background" Value="{StaticResource Primary}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+     <!--// Binding Context //--> 
+    <ContentPage.BindingContext>
+        <vm:WelcomePageViewModel />
+    </ContentPage.BindingContext>
+
+    <!--// Content //-->
+    <Grid RowDefinitions="450, *">
+
+        <Grid
+            Style="{StaticResource HeaderStyle}">
+
+            <StackLayout
+                Style="{StaticResource ContainerLogoStyle}">
+                
+                <Image 
+                    Style="{StaticResource LogoStyle}"
+                    Source="logo.png"/>
+
+                <Label 
+                    Style="{StaticResource LogoContentStyle}"
+                    Text="MAUI Messenger"/>
+
+                <Label 
+                    Style="{StaticResource LogoDescriptionStyle}"
+                    Text="A simple messenger built on modern MAUI and NET Micro APIs technologies"/>
+                
+            </StackLayout>
+        </Grid>
+
+        <Frame
+            Grid.Row="1"
+            Style="{StaticResource FooterStyle}">
+
+            <StackLayout>
+                
+                <Label
+                Style="{StaticResource HeadlineTextStyle}"
+                Text="Sign Up"/>
+
+                <Label 
+                    Style="{StaticResource InputLabelStyle}"
+                    Text="Login"/>
+                
+                <Entry 
+                    Style="{StaticResource InputEntryStyle}"
+                    Text="{Binding Login}"
+                    />
+
+                <Label 
+                    Style="{StaticResource InputLabelStyle}"
+                    Text="Password"/>
+
+                <Entry 
+                    IsPassword="True"
+                    Style="{StaticResource InputEntryStyle}"
+                    Text="{Binding Password}"
+                    />
+
+                <Button 
+                    Style="{StaticResource ButtonStyle}"
+                    Command="{Binding LoginCommand}"
+                    Text="Continue"/>
+
+
+            </StackLayout>
+            
+            
+        </Frame>
+
+    </Grid>
+
+
+</ContentPage>
