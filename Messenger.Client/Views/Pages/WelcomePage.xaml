@@ -16,8 +16,12 @@
             </Style>
 
             <Style x:Key="FooterStyle" TargetType="Frame">
-                <Setter Property="Margin" Value="20, -120, 20, 0" />
-                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="Margin" Value="{
+                    OnPlatform '20, -120, 20, 0', 
+                    Android='0, -120, 0, 0', 
+                    iOS='0, -120, 0, 0'}" />
+
+                <Setter Property="BorderColor" Value="Transparent" />
                 <Setter Property="HasShadow" Value="True" />
                 <Setter Property="Shadow">
                     <Setter.Value>
@@ -76,7 +80,11 @@
             </Style>
 
             <Style x:Key="InputEntryStyle" TargetType="Entry">
-                <Setter Property="HeightRequest" Value="{OnPlatform WinUI=45}" />
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="Background" Value="{OnPlatform 
+                    Android={StaticResource Gray100},
+                    iOS={StaticResource Gray100}
+                    }" />
 
             </Style>
 
@@ -85,6 +93,15 @@
                 <Setter Property="HeightRequest" Value="50" />
                 <Setter Property="HorizontalOptions" Value="End" />
                 <Setter Property="Background" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontFamily" Value="InterMedium"/>
+
+                <Style.Triggers>
+                    <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="Opacity" Value="0.4" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
         </ResourceDictionary>
@@ -150,8 +167,10 @@
 
                 <Button 
                     Style="{StaticResource ButtonStyle}"
+                    IsEnabled="{Binding ButtonIsActive}"
                     Command="{Binding LoginCommand}"
-                    Text="Continue"/>
+                    Text="Continue" />
+
 
 
             </StackLayout>

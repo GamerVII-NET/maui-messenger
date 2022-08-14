@@ -1,3 +1,5 @@
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -25,18 +27,19 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/login", [AllowAnonymous] async (HttpContext context,
-    ITokenService tokenService, IUserRepository userRepository) =>
+app.MapPost("/login", [AllowAnonymous] (UserModel user,
+    ITokenService tokenService,
+    IUserRepository userRepository) =>
 {
     UserModel userModel = new UserModel
     {
-        UserName = context.Request.Query["username"],
-        Password = context.Request.Query["password"],
+        UserName = user.UserName,
+        Password = user.Password,
     };
 
     var userDto = userRepository.GetUser(userModel);
 
-    if (userDto == null) return Results.Unauthorized();
+    if (userDto == null) return Task.FromResult(Results.Unauthorized());
 
     var token = tokenService.BuildToken(
         builder.Configuration["Jwt:Key"],
@@ -44,7 +47,7 @@ app.MapGet("/login", [AllowAnonymous] async (HttpContext context,
         userDto
         );
 
-    return Results.Ok(token);
+    return Task.FromResult(Results.Ok(token));
 
 });
 

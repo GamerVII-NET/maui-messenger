@@ -1,8 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Messenger.Client.Services;
+using Messenger.Client.Views.Pages;
+using Messenger.Domains.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,24 +23,51 @@ namespace Messenger.Client.ViewModels
         [ObservableProperty]
         string _password;
 
+        [ObservableProperty]
+        bool _buttonIsActive = true;
+
         public WelcomePageViewModel()
         {
-            _name = "MAUI Messenger";
+            string token = Preferences.Get("Token", "");
+
+            if (string.IsNullOrEmpty(token) == false)
+            {
+                Shell.Current.GoToAsync(nameof(DashboardPage));
+            }
         }
 
         [RelayCommand]
         async Task OnLoginAsync()
         {
-            if (string.IsNullOrEmpty(_login) ||
-                string.IsNullOrEmpty(_password))
+            _buttonIsActive = false;
+
+            #region Audit
+            if (string.IsNullOrEmpty(_login) || string.IsNullOrEmpty(_password))
             {
                 await Shell.Current.DisplayAlert("Error", "Login and password cannot be empty", "Ok");
+
+                _buttonIsActive = true;
+                return;
+            } 
+            #endregion
+
+            var response = await AuthService.AuthAsync(_login, _password);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                await Shell.Current.DisplayAlert("Error", "Failed to log in, check the correctness of the entered data, or try again later", "Ok");
                 return;
             }
 
-            
+            await Shell.Current.GoToAsync(nameof(DashboardPage));
 
+            string token = await response.Content.ReadAsStringAsync();
+
+            Preferences.Set("Token", token.Replace("\"", ""));
+
+            _buttonIsActive = true;
         }
+
 
 
     }
