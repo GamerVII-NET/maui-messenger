@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Messenger.Client.Views.Converters"
+             xmlns:models="clr-namespace:Messenger.Domains.Models;assembly=Messenger.Domains"
+             x:Class="Messenger.Client.Views.Controls.DirectChatControl"
+             x:DataType="models:ChatModel">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="MessageContainer" TargetType="Grid">
+                <Setter Property="Margin" Value="0, 0, 0, 20" />
+                <Setter Property="ColumnSpacing" Value="8" />
+            </Style>
+
+            <Style x:Key="AvatarFrameStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="35" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="CornerRadius" Value="35" />
+            </Style>
+
+            <Style x:Key="InitialsLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="InterSemiBold" />
+                <Setter Property="FontSize" Value="13" />
+            </Style>
+
+            <Style x:Key="InitialsContainer" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="2" />
+                <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+
+            <Color x:Key="TextMessageColor">#768194></Color>
+
+            <Style x:Key="MessageContentStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#4F596A" />
+                <Setter Property="FontFamily" Value="InterMedium" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+                <Setter Property="Margin" Value="0, 2, 0, 0" />
+            </Style>
+
+            <Style x:Key="OnlineStatusStyle" TargetType="Ellipse">
+                <Setter Property="Fill" Value="#78B98B"/>
+                <Setter Property="WidthRequest" Value="15"/>
+                <Setter Property="HeightRequest" Value="15"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="Margin" Value="0, 0, -2, -2" />
+                <Setter Property="Stroke" Value="White" />
+                <Setter Property="StrokeThickness" Value="5" />
+            </Style>
+
+            <Style x:Key="LastMessageLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="InterMedium" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="TextColor" Value="#768194" />
+                <Setter Property="HorizontalTextAlignment" Value="End" />
+            </Style>
+
+            <Color x:Key="CountContainerColor">#DF625D</Color>
+
+            <Style x:Key="MessageCountStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="InterMedium" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="MessageCountContainerStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="5, 2, 5, 2" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Background" Value="{StaticResource CountContainerColor}" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="End" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <VerticalStackLayout>
+        <Grid 
+            Style="{StaticResource MessageContainer}"
+            ColumnDefinitions="40, 160, *">
+            <Grid>
+
+                <Frame
+                    Style="{StaticResource AvatarFrameStyle}">
+                    <Image 
+                        Source="{Binding User.AvatarLink}"
+                        Aspect="AspectFill"/>
+
+                </Frame>
+
+                <Ellipse 
+                    Style="{StaticResource OnlineStatusStyle}">
+                    
+                </Ellipse>
+            </Grid>
+
+            <Grid RowDefinitions="*, *" Grid.Column="1">
+                <StackLayout
+                    Style="{StaticResource InitialsContainer}">
+
+                    <Label 
+                        Style="{StaticResource InitialsLabelStyle}"
+                        Text="{Binding User.LastName}"/>
+
+                    <Label 
+                        Style="{StaticResource InitialsLabelStyle}"
+                        Text="{Binding User.FirstName}"/>
+                </StackLayout>
+
+                <Label 
+                    Grid.Row="1"
+                    Style="{StaticResource MessageContentStyle}"
+                    Text="{Binding LastMessage}"/>
+            </Grid>
+
+            <Grid 
+                RowDefinitions="*, *" 
+                Margin="0, 0, 18, 0"
+                Grid.Column="2">
+                <Label 
+                    Style="{StaticResource LastMessageLabelStyle}"
+                    Text="{Binding 
+                    LastMessageDate, 
+                    Converter={converters:LastMessageDateConverter}}"
+                    Grid.Row="0"/>
+
+                <Frame 
+                    Style="{StaticResource MessageCountContainerStyle}"
+                    IsVisible="{Binding MessageCount, Converter={converters:MessageCountConverter}}"
+                    Grid.Row="1">
+
+                    <Label
+                        Style="{StaticResource MessageCountStyle}"
+                        Text="{Binding MessageCount}"
+                        />
+
+                </Frame>
+            </Grid>
+        </Grid>
+    </VerticalStackLayout>
+</ContentView>

@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domains", "Domains", "{C4B4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Domains", "Messenger.Domains\Messenger.Domains.csproj", "{0627B354-06CC-48BE-91DF-8EFD4567A03F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Client", "Messenger.Client\Messenger.Client.csproj", "{DDD980BA-917E-4EB9-8134-0E0E73889A51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Client", "Messenger.Client\Messenger.Client.csproj", "{DDD980BA-917E-4EB9-8134-0E0E73889A51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

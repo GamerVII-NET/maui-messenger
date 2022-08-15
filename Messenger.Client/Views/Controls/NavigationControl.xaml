@@ -20,7 +20,7 @@
             </Style>
 
             <Style x:Key="NavigationItemStyle" TargetType="ImageButton">
-                <Setter Property="WidthRequest" Value="25" />
+                <Setter Property="WidthRequest" Value="22" />
             </Style>
 
             <Style x:Key="ProfileAvatarImage" TargetType="Frame">
