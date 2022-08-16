@@ -55,18 +55,36 @@
             GroupMessengerTemplate="{StaticResource GroupMessageTemplate}"
             />
 
+        <Style x:Key="MessengerNavigationContainerStyle" TargetType="StackLayout">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Spacing" Value="20" />
+        </Style>
+
+        <Style x:Key="MessengerNavigationStyle" TargetType="Grid">
+            <Setter Property="Padding" Value="20, 0" />
+        </Style>
+
+        <Style x:Key="MessengerNavigationButtonStyle" TargetType="ImageButton">
+            <Setter Property="WidthRequest" Value="22"  />
+        </Style>
+
+        <Style x:Key="MessengerNavigationTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="InterMedium" />
+        </Style>
 
 
     </ContentPage.Resources>
 
     <!--// Dashboard content //-->
     <Grid 
-        ColumnDefinitions="60, 1, 300, *, 350">
+        ColumnDefinitions="60, 1, 300, 1, *, 300">
 
         <controls:NavigationControl />
 
         <BoxView Grid.Column="1" Color="{StaticResource Gray100}"/>
-
 
         <Grid
             Style="{StaticResource MessagesList}"
@@ -106,6 +124,40 @@
             </ScrollView>
 
         </Grid>
+
+        <BoxView Grid.Column="3" Color="{StaticResource Gray100}"/>
+
+        <Grid
+            Grid.Column="4"
+            RowDefinitions="60, *">
+
+            <Grid
+                Style="{StaticResource MessengerNavigationStyle}"
+                ColumnDefinitions="*, *, *">
+
+                <Label 
+                    Grid.Column="0"
+                    Style="{StaticResource MessengerNavigationTitle}"
+                    Text="Anton Terentev"/>
+
+                <StackLayout
+                    Style="{StaticResource MessengerNavigationContainerStyle}"
+                    Grid.Column="1">
+
+                    <ImageButton 
+                        Style="{StaticResource MessengerNavigationButtonStyle}"
+                        Source="icon_image.png"/>
+
+                    <ImageButton 
+                        Style="{StaticResource MessengerNavigationButtonStyle}"
+                        Source="icon_document.png"/>
+
+                </StackLayout>
+
+            </Grid>
+            
+        </Grid>
+        
         
     </Grid>
 </ContentPage>
