@@ -11,16 +11,20 @@ namespace Messenger.Client.Views.Templates
         {
             var chat = item as ChatModel;
 
-            switch (chat.MessageType)
+            switch (chat.Type)
             {
-                case Enums.MessageType.Group:
+                case Enums.ChatType.Conversation: 
                     return GroupMessengerTemplate;
 
-                case Enums.MessageType.Direct:
+                case Enums.ChatType.Direct: 
                     return DirectMessengerTemplate;
 
-                default:
+                case Enums.ChatType.Channel: 
+                    return GroupMessengerTemplate;
+
+                default: 
                     return DirectMessengerTemplate;
+
             }
         }
     }

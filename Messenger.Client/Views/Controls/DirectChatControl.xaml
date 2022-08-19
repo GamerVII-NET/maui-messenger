@@ -82,36 +82,38 @@
     </ContentView.Resources>
 
     <VerticalStackLayout>
-        <Grid 
-            Style="{StaticResource MessageContainer}"
-            ColumnDefinitions="40, 160, *">
+        <Grid Style="{StaticResource MessageContainer}"
+              ColumnDefinitions="40, 160, *">
+             <!--// Avatar //--> 
             <Grid>
 
                 <Frame
                     Style="{StaticResource AvatarFrameStyle}">
-                    <Image 
-                        Source="{Binding User.AvatarLink}"
-                        Aspect="AspectFill"/>
-
+                    <CollectionView ItemsSource="{Binding Users}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="{x:Type models:UserModel}">
+                                <Image Source="{Binding AvatarLink}"
+                                       Aspect="AspectFill"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </Frame>
 
                 <Ellipse 
                     Style="{StaticResource OnlineStatusStyle}">
-                    
                 </Ellipse>
             </Grid>
 
+             <!--// SenderInfo //--> 
             <Grid RowDefinitions="*, *" Grid.Column="1">
                 <StackLayout
                     Style="{StaticResource InitialsContainer}">
 
-                    <Label 
-                        Style="{StaticResource InitialsLabelStyle}"
-                        Text="{Binding User.LastName}"/>
+                    
 
                     <Label 
                         Style="{StaticResource InitialsLabelStyle}"
-                        Text="{Binding User.FirstName}"/>
+                        Text="{Binding ., Converter={converters:InitialsChatConverter}}"/>
                 </StackLayout>
 
                 <Label 
@@ -119,7 +121,8 @@
                     Style="{StaticResource MessageContentStyle}"
                     Text="{Binding LastMessage}"/>
             </Grid>
-
+            
+             <!--// Message info //-->
             <Grid 
                 RowDefinitions="*, *" 
                 Margin="0, 0, 18, 0"

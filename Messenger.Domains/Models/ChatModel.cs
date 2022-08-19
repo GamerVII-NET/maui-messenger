@@ -4,15 +4,11 @@ namespace Messenger.Domains.Models
 {
     public class ChatModel
     {
-        public UserModel User { get; set; }
 
-        public string LastMessage { get; set; }
+        public Guid ChatGuid { get; set; }
 
-        public DateTime LastMessageDate { get; set; }
+        public ChatType Type { get; set; }
 
-        public MessageType MessageType { get; set; }
-
-        public bool IsOnline { get; set; }
-        public int MessageCount { get; set; }
+        public IEnumerable<UserModel> Users { get; set; } = Enumerable.Empty<UserModel>();
     }
 }

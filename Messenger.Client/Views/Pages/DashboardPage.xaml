@@ -2,13 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Messenger.Client.ViewModels"
+             xmlns:converters="clr-namespace:Messenger.Client.Views.Converters"
              xmlns:controls="clr-namespace:Messenger.Client.Views.Controls"
              xmlns:templates="clr-namespace:Messenger.Client.Views.Templates"
              x:Class="Messenger.Client.Views.Pages.DashboardPage"
              x:DataType="vm:DashboardPageViewModel">
 
-    
-     <!--// Binding context //--> 
+
+    <!--// Binding context //-->
     <ContentPage.BindingContext>
         <vm:DashboardPageViewModel />
     </ContentPage.BindingContext>
@@ -21,7 +22,7 @@
         </Style>
 
         <Color x:Key="PlaceHolderColor">#768194</Color>
-        
+
         <Style x:Key="SearchInputStyle" TargetType="Entry">
             <Setter Property="PlaceholderColor" Value="{StaticResource PlaceHolderColor}" />
             <Setter Property="HorizontalTextAlignment" Value="Start" />
@@ -46,7 +47,16 @@
         </DataTemplate>
 
         <DataTemplate x:Key="DirectMessageTemplate">
-            <controls:DirectChatControl />
+            <controls:DirectChatControl>
+
+                <controls:DirectChatControl.GestureRecognizers>
+                    <ClickGestureRecognizer 
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DashboardPageViewModel}}, Path=LoadInfoByChatModel}"
+                        CommandParameter="{Binding}"/>
+                </controls:DirectChatControl.GestureRecognizers>
+
+
+            </controls:DirectChatControl>
         </DataTemplate>
 
         <templates:MessageDataTemplateSelector
@@ -58,7 +68,7 @@
         <Style x:Key="MessengerNavigationContainerStyle" TargetType="StackLayout">
             <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="Spacing" Value="20" />
+            <Setter Property="Spacing" Value="35" />
         </Style>
 
         <Style x:Key="MessengerNavigationStyle" TargetType="Grid">
@@ -66,13 +76,27 @@
         </Style>
 
         <Style x:Key="MessengerNavigationButtonStyle" TargetType="ImageButton">
-            <Setter Property="WidthRequest" Value="22"  />
+            <Setter Property="WidthRequest" Value="25"  />
         </Style>
 
         <Style x:Key="MessengerNavigationTitle" TargetType="Label">
-            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="InterMedium" />
+        </Style>
+
+        <Style x:Key="ProfileAvatarImage" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="50" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="WidthRequest" Value="35" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="ProfileAvatarContainerStyle" TargetType="StackLayout">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="End" />
         </Style>
 
 
@@ -80,7 +104,7 @@
 
     <!--// Dashboard content //-->
     <Grid 
-        ColumnDefinitions="60, 1, 300, 1, *, 300">
+        ColumnDefinitions="60, 1, 300, 1, *, 1, 400">
 
         <controls:NavigationControl />
 
@@ -101,14 +125,16 @@
                         Source="search.png"/>
                     </Grid>
 
-
                     <Label 
                     Style="{StaticResource SectionHeadlineStyle}"
                     Text="Team messages"/>
 
                     <CollectionView
                         ItemTemplate="{StaticResource MessageDataTemplateSelector}"
-                        ItemsSource="{Binding LastMessages}">
+                        SelectedItem="{Binding SelectedChat}"
+                        ItemsSource="{Binding Chats,
+                        Converter={converters:GetChatsConverter},
+                        ConverterParameter=0}">
                     </CollectionView>
 
                     <Label 
@@ -117,7 +143,10 @@
 
                     <CollectionView
                         ItemTemplate="{StaticResource MessageDataTemplateSelector}"
-                        ItemsSource="{Binding LastMessages}">
+                        SelectedItem="{Binding SelectedChat}"
+                        ItemsSource="{Binding Chats,
+                        Converter={converters:GetChatsConverter},
+                        ConverterParameter=1}">
                     </CollectionView>
                 </StackLayout>
 
@@ -127,9 +156,8 @@
 
         <BoxView Grid.Column="3" Color="{StaticResource Gray100}"/>
 
-        <Grid
-            Grid.Column="4"
-            RowDefinitions="60, *">
+        <Grid Grid.Column="4"
+              RowDefinitions="60, *">
 
             <Grid
                 Style="{StaticResource MessengerNavigationStyle}"
@@ -138,11 +166,15 @@
                 <Label 
                     Grid.Column="0"
                     Style="{StaticResource MessengerNavigationTitle}"
-                    Text="Anton Terentev"/>
+                    Text="{Binding SelectedChat, Converter={converters:InitialsChatConverter}}"/>
 
                 <StackLayout
                     Style="{StaticResource MessengerNavigationContainerStyle}"
                     Grid.Column="1">
+
+                    <ImageButton 
+                        Style="{StaticResource MessengerNavigationButtonStyle}"
+                        Source="icon_phone.png"/>
 
                     <ImageButton 
                         Style="{StaticResource MessengerNavigationButtonStyle}"
@@ -154,10 +186,19 @@
 
                 </StackLayout>
 
+                <StackLayout
+                    Grid.Column="2"
+                    Style="{StaticResource ProfileAvatarContainerStyle}">
+                    <Frame Style="{StaticResource ProfileAvatarImage}">
+                        <Image Source="profile.jpg" Aspect="AspectFill"/>
+                    </Frame>
+                </StackLayout>
+
             </Grid>
-            
+
         </Grid>
-        
-        
+
+        <BoxView Grid.Column="5" Color="{StaticResource Gray100}"/>
+
     </Grid>
 </ContentPage>
