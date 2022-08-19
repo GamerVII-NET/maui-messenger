@@ -30,7 +30,7 @@ app.MapGet("/users", () =>
 
     return forecast;
 })
-.WithName("GetWeatherForecast");
+.WithName("GetUsers");
 
 //app.MapPost("/login", [AllowAnonymous] (UserModel user,
 //    ITokenService tokenService,
