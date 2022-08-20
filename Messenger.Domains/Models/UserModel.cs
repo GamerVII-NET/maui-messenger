@@ -6,6 +6,8 @@ namespace Messenger.Domains.Models
 
     public class UserModel
     {
+        public Guid Id { get; set; }
+
         [Required]
         public string UserName { get; set; } = string.Empty;
         [Required]

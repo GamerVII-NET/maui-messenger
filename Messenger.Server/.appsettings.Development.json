@@ -5,9 +5,13 @@
       "Microsoft.AspNetCore": "Warning"
     }
   },
+  "AllowedHosts": "*",
   "Jwt": {
     "Key": "",
     "Issuer": "",
     "Audience": ""
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": ""
   }
 }
