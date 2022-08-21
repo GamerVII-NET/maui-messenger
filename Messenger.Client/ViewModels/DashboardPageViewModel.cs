@@ -14,10 +14,10 @@ namespace Messenger.Client.ViewModels
         object _currentPage;
 
         [ObservableProperty]
-        ObservableCollection<ChatModel> _chats = new ObservableCollection<ChatModel>();
+        ObservableCollection<Chat> _chats = new ObservableCollection<Chat>();
 
         [ObservableProperty]
-        ChatModel _selectedChat;
+        Chat _selectedChat;
 
         public DashboardPageViewModel()
         {
@@ -31,7 +31,7 @@ namespace Messenger.Client.ViewModels
         }
 
         [RelayCommand]
-        async Task LoadInfoByChatModel(ChatModel chatModel)
+        async Task LoadInfoByChatModel(Chat chatModel)
         {
 
         }

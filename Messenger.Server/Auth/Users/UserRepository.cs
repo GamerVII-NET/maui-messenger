@@ -1,4 +1,5 @@
 ﻿using Messenger.Domains.Models;
+using Messenger.Server.Data;
 
 public class UserRepository : IUserRepository
 {
@@ -10,10 +11,9 @@ public class UserRepository : IUserRepository
 
     public UserRepository()
     {
-
     }
 
-    public UserDto GetUser(UserModel userModel) =>
+    public UserDto GetUser(User userModel) =>
         _users.FirstOrDefault(c =>
         string.Equals(c.UserName, userModel.UserName) &&
         string.Equals(c.Password, userModel.Password)) ??

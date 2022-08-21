@@ -4,7 +4,7 @@
              xmlns:converters="clr-namespace:Messenger.Client.Views.Converters"
              xmlns:models="clr-namespace:Messenger.Domains.Models;assembly=Messenger.Domains"
              x:Class="Messenger.Client.Views.Controls.GroupChatControl"
-             x:DataType="models:ChatModel">
+             x:DataType="models:Chat">
     <ContentView.Resources>
         <ResourceDictionary>
 
@@ -91,7 +91,7 @@
                     Style="{StaticResource AvatarFrameStyle}">
                     <CollectionView ItemsSource="{Binding Users}">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="{x:Type models:UserModel}">
+                            <DataTemplate x:DataType="{x:Type models:User}">
                                 <Image Source="{Binding AvatarLink}"
                                        Aspect="AspectFill"/>
                             </DataTemplate>

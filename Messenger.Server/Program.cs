@@ -21,7 +21,6 @@ builder.Services
     .AddJwtBearer(options => AddJwtBearer
     .GenerateConfig(options, builder));
 
-
 var app = builder.Build();
 
 app.UseAuthentication();
@@ -38,22 +37,24 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/users", [Authorize] async (DataBaseContext dataBase) => await dataBase.Users.ToListAsync());
+
 app.MapGet("/users/{guid}", async (DataBaseContext dataBase, Guid guid) =>
-    await dataBase.Users.FirstOrDefaultAsync(c => c.Id == guid) is UserModel userModel
+    await dataBase.Users.FirstOrDefaultAsync(c => c.Guid == guid) is User userModel
     ? Results.Ok(userModel)
     : Results.NotFound());
 
-app.MapPost("/users/", async (DataBaseContext dataBase, [FromBody] UserModel userModel) =>
+app.MapPost("/users/", async (DataBaseContext dataBase, [FromBody] User userModel) =>
 {
-    userModel.Id = Guid.NewGuid();
+    userModel.Guid = Guid.NewGuid();
     await dataBase.Users.AddAsync(userModel);
     await dataBase.SaveChangesAsync();
-    return Results.Created($"/users/{userModel.Id}", userModel);
+    return Results.Created($"/users/{userModel.Guid}", userModel);
 });
 
 app.MapDelete("/users/{guid}", async (DataBaseContext dataBase, Guid guid) =>
 {
-    var user = await dataBase.Users.FirstOrDefaultAsync(c => c.Id == guid);
+    var user = await dataBase.Users.FirstOrDefaultAsync(c => c.Guid == guid);
+
     if (user == null) return Results.NotFound();
     
     dataBase.Users.Remove(user);
@@ -62,11 +63,11 @@ app.MapDelete("/users/{guid}", async (DataBaseContext dataBase, Guid guid) =>
     return Results.NoContent();
 });
 
-app.MapPost("/login", [AllowAnonymous] (UserModel user,
+app.MapPost("/login", [AllowAnonymous] (User user,
     ITokenService tokenService,
     IUserRepository userRepository) =>
 {
-    UserModel userModel = new UserModel
+    User userModel = new User
     {
         UserName = user.UserName,
         Password = user.Password

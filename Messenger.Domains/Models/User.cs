@@ -1,15 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Messenger.Domains.Models
 {
     public record UserDto(string UserName, string Password);
 
-    public class UserModel
+    [Table("Users")]
+    public class User
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid Guid { get; set; }
 
         [Required]
         public string UserName { get; set; } = string.Empty;
+
         [Required]
         public string Password { get; set; } = string.Empty;
 
@@ -30,5 +34,13 @@ namespace Messenger.Domains.Models
         public bool IsBanner { get; set; } = false;
 
         public bool Confirmed { get; set; } = false;
+
+        public IEnumerable<Chat> Chats { get; set; } = Enumerable.Empty<Chat>();
+
+        public override string ToString()
+        {
+            return $"{Guid} - {FirstName} {LastName} {Patronymic}";
+        }
+
     }
 }

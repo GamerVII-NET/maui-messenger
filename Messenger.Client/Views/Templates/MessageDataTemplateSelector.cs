@@ -9,7 +9,7 @@ namespace Messenger.Client.Views.Templates
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var chat = item as ChatModel;
+            var chat = item as Chat;
 
             switch (chat.Type)
             {

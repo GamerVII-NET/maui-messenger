@@ -8,7 +8,7 @@ namespace Messenger.Client.Services
         internal static async Task<HttpResponseMessage> AuthAsync(string login, string password)
         {
 
-            UserModel user = new UserModel
+            User user = new User
             {
                 UserName = login,
                 Password = password
