@@ -1,9 +1,11 @@
-﻿public class TokenService : ITokenService
+﻿using Messenger.Domains.Dtos;
+
+public class TokenService : ITokenService
 {
 
     private TimeSpan ExpireDuration = new TimeSpan(0, 30, 0);
 
-    public string BuildToken(string key, string issuer, UserDto user)
+    public string BuildToken(string key, string issuer, User user)
     {
         var claims = new[]
         {

@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Messenger.Domains.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace Messenger.Domains.Models
+namespace Messenger.Domains.Dtos
 {
-    public record UserDto(User user);
-
-    [Table("Users")]
-    public class User
+    public class UserUpdateDto
     {
         [Key]
-        public Guid GlobalGuid { get; set; }
+        public Guid Guid { get; set; }
 
         [Required]
         [MaxLength(32)]
@@ -19,11 +16,11 @@ namespace Messenger.Domains.Models
         public string Password { get; set; } = string.Empty;
 
         public string FirstName { get; set; } = string.Empty;
-        
+
         public string Patronymic { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;
-        
+
         public string Photo { get; set; } = string.Empty;
 
         public DateTime LastOnline { get; set; }
@@ -37,11 +34,6 @@ namespace Messenger.Domains.Models
         public bool Confirmed { get; set; } = false;
 
         public IEnumerable<Chat> Chats { get; set; } = Enumerable.Empty<Chat>();
-
-        public override string ToString()
-        {
-            return $"{GlobalGuid} - {FirstName} {LastName} {Patronymic}";
-        }
 
     }
 }
