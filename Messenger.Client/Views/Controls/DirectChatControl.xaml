@@ -89,10 +89,11 @@
 
                 <Frame
                     Style="{StaticResource AvatarFrameStyle}">
-                    <CollectionView ItemsSource="{Binding Users}">
+                    <!--<CollectionView ItemsSource="{Binding Users}">-->
+                    <CollectionView>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="{x:Type models:User}">
-                                <Image Source="{Binding AvatarLink}"
+                                <Image Source="{Binding Photo}"
                                        Aspect="AspectFill"/>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -116,10 +117,10 @@
                         Text="{Binding ., Converter={converters:InitialsChatConverter}}"/>
                 </StackLayout>
 
-                <Label 
+                <!--<Label 
                     Grid.Row="1"
                     Style="{StaticResource MessageContentStyle}"
-                    Text="{Binding LastMessage}"/>
+                    Text="{Binding LastMessage}"/>-->
             </Grid>
             
              <!--// Message info //-->
@@ -127,14 +128,14 @@
                 RowDefinitions="*, *" 
                 Margin="0, 0, 18, 0"
                 Grid.Column="2">
-                <Label 
+                <!--<Label 
                     Style="{StaticResource LastMessageLabelStyle}"
                     Text="{Binding 
                     LastMessageDate, 
                     Converter={converters:LastMessageDateConverter}}"
-                    Grid.Row="0"/>
+                    Grid.Row="0"/>-->
 
-                <Frame 
+                <!--<Frame 
                     Style="{StaticResource MessageCountContainerStyle}"
                     IsVisible="{Binding MessageCount, Converter={converters:MessageCountConverter}}"
                     Grid.Row="1">
@@ -144,7 +145,7 @@
                         Text="{Binding MessageCount}"
                         />
 
-                </Frame>
+                </Frame>-->
             </Grid>
         </Grid>
     </VerticalStackLayout>

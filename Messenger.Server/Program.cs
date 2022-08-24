@@ -44,26 +44,24 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/api/v1/users", async (IUserRepository repository, IMapper mapper) =>
+
+app.MapGet("/api/v1/users", [Authorize] async (IUserRepository repository, IMapper mapper) =>
 {
     var users = await repository.GetAllUsersAsync();
 
     return Results.Ok(mapper.Map<IEnumerable<UserReadDto>>(users));
 });
 
-
-
 app.MapGet("/api/v1/users/{guid}", async (IUserRepository repository, IMapper mapper, Guid guid) =>
 await repository.GetUserByGuidAsync(guid) is User userModel
     ? Results.Ok(mapper.Map<UserReadDto>(userModel))
 : Results.NotFound());
 
-app.MapPost("/api/v1/auth", async (IUserRepository repository, ITokenService tokenService, IMapper mapper, UserAuthDto user) =>
+app.MapPost("/api/v1/auth", async (IUserRepository repository, ITokenService tokenService, UserAuthDto user) =>
 {
-
     var userDto = await repository.AuthUserAsync(user);
 
-    if (userDto == null) return Task.FromResult(Results.Unauthorized());
+    if (userDto == null) return Results.Unauthorized();
 
     var token = tokenService.BuildToken(
         builder.Configuration["Jwt:Key"],
@@ -71,12 +69,30 @@ app.MapPost("/api/v1/auth", async (IUserRepository repository, ITokenService tok
         userDto
         );
 
-    return Task.FromResult(Results.Ok(token));
+    //return Task.FromResult(Results.Ok(userDto));
+    return Results.Ok(token);
+});
 
+app.MapPost("/api/v1/users/", async (IUserRepository repository, IMapper mapper, UserCreateDto user) =>
+{
+    User userModel = mapper.Map<User>(user);
+
+    var checkUser = await repository.GetUserByUserNameAsync(user.UserName);
+
+    if (checkUser != null)
+    {
+        return Results.Conflict();
+    }
+
+    userModel = await repository.CreateUserAsync(userModel);
+
+    await repository.SaveChangesAsync();
+
+    return Results.Created($"/api/v1/users/{userModel.GlobalGuid}", userModel);
 });
 
 
-
+/*
 app.MapGet("/users/{guid}", async (IUserRepository repository, IMapper mapper, Guid guid) =>
 {
 
@@ -89,11 +105,12 @@ app.MapGet("/users/{guid}", async (IUserRepository repository, IMapper mapper, G
 
     return Results.Ok(mapper.Map<IEnumerable<UserReadDto>>(searchUser));
 
-    /*await dataBase.Users.FirstOrDefaultAsync(c => c.GlobalGuid == guid) is User userModel
+    *//*await dataBase.Users.FirstOrDefaultAsync(c => c.GlobalGuid == guid) is User userModel
     ? Results.Ok(userModel)
-    : Results.NotFound()*/
+    : Results.NotFound()*//*
 
 });
+
 app.MapPost("/users/", async (DataBaseContext dataBase, [FromBody] User userModel) =>
 {
     userModel.GlobalGuid = Guid.NewGuid();
@@ -112,7 +129,7 @@ app.MapDelete("/users/{guid}", async (DataBaseContext dataBase, Guid guid) =>
 
     await dataBase.SaveChangesAsync();
     return Results.NoContent();
-});
+});*/
 
 //app.MapPost("/login", [AllowAnonymous]
 //async (User user, ITokenService tokenService, IUserRepository userRepository) =>

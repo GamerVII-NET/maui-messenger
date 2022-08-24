@@ -9,9 +9,11 @@ namespace Messenger.Server.Repositories.UserRepository
 
         Task<User?> GetUserByGuidAsync(Guid guid);
 
+        Task<User?> GetUserByUserNameAsync(string userName);
+
         Task<IEnumerable<User>> GetAllUsersAsync();
 
-        Task CreateUserAsync(User user);
+        Task<User> CreateUserAsync(User user);
 
         Task<User?> AuthUserAsync(UserAuthDto user);
 

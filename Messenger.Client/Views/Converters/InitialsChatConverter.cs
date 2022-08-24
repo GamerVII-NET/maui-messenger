@@ -18,11 +18,11 @@ namespace Messenger.Client.Views.Converters
 
             if (chat == null) { return null; }
 
-            if (chat.Users.Count() == 2)
-            {
-                var sender = chat.Users.FirstOrDefault();
-                return $"{sender.LastName} {sender.FirstName}";
-            }
+            //if (chat.Users.Count() == 2)
+            //{
+            //    var sender = chat.Users.FirstOrDefault();
+            //    return $"{sender.LastName} {sender.FirstName}";
+            //}
 
             return null;
         }

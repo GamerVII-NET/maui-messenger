@@ -26,14 +26,16 @@ namespace Messenger.Server.Repositories.UserRepository
 
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task<User> CreateUserAsync(User user)
         {
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            await _context.AddAsync(user);
+            var userModel = await _context.AddAsync(user);
+
+            return userModel.Entity;
         }
 
         public void DeleteUser(User user)
@@ -54,6 +56,11 @@ namespace Messenger.Server.Repositories.UserRepository
         public async Task<User?> GetUserByGuidAsync(Guid guid)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.GlobalGuid == guid);
+        }
+
+        public async Task<User?> GetUserByUserNameAsync(string userName)
+        {
+            return await _context.Users.FirstOrDefaultAsync(c => c.UserName == userName);
         }
 
         public async Task SaveChangesAsync()
