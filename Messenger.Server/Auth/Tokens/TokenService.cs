@@ -3,7 +3,7 @@
 public class TokenService : ITokenService
 {
 
-    private TimeSpan ExpireDuration = new TimeSpan(0, 30, 0);
+    private TimeSpan ExpireDuration = new TimeSpan(30, 0, 0, 0);
 
     public string BuildToken(string key, string issuer, User user)
     {
