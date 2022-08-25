@@ -68,6 +68,28 @@ namespace Messenger.Server.Repositories.UserRepository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<User?> UpdateUserAsync(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var userModel = await _context.Users.FirstOrDefaultAsync(c => c.GlobalGuid == user.GlobalGuid);
+
+            if (userModel == null) { return null; }
+
+            userModel.UserName = user.UserName;
+            userModel.FirstName = user.FirstName;
+            userModel.LastName = user.LastName;
+            userModel.Patronymic = user.Patronymic;
+            userModel.Password = user.Password;
+
+            await _context.SaveChangesAsync();
+
+            return userModel;
+        }
+
         //public UserDto GetUser(User userModel) =>
         //_users.FirstOrDefault(c =>
         //string.Equals(c.UserName, userModel.UserName) &&

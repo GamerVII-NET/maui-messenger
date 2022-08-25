@@ -10,11 +10,11 @@ namespace Messenger.Domains.Dtos
 
         public string Password { get; set; } = string.Empty;
 
-        //public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
 
-        //public string Patronymic { get; set; } = string.Empty;
+        public string Patronymic { get; set; } = string.Empty;
 
-        //public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
 
         //public string Photo { get; set; } = string.Empty;
 

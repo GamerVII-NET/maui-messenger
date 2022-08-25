@@ -22,10 +22,10 @@
             </Style>
 
             <Style x:Key="FooterStyle" TargetType="Frame">
-                <Setter Property="Margin" Value="{
+                <!--<Setter Property="Margin" Value="{
                     OnPlatform '20, -120, 20, 0', 
                     Android='0, -120, 0, 0', 
-                    iOS='0, -120, 0, 0'}" />
+                    iOS='0, -120, 0, 0'}" />-->
 
                 <Setter Property="BorderColor" Value="Transparent" />
                 <Setter Property="HasShadow" Value="True" />
@@ -42,8 +42,9 @@
             </Style>
 
             <Style x:Key="ContainerLogoStyle" TargetType="StackLayout">
-                <Setter Property="Margin" Value="0, 40, 0, 0" />
+                <Setter Property="Margin" Value="0, 100, 0, 0" />
                 <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
             </Style>
 
 
@@ -87,10 +88,10 @@
 
             <Style x:Key="InputEntryStyle" TargetType="Entry">
                 <Setter Property="HeightRequest" Value="45" />
-                <Setter Property="Background" Value="{OnPlatform 
+                <!--<Setter Property="Background" Value="{OnPlatform 
                     Android={StaticResource Gray100},
                     iOS={StaticResource Gray100}
-                    }" />
+                    }" />-->
 
             </Style>
 
@@ -117,61 +118,47 @@
     <ScrollView>
         <Grid RowDefinitions="450, *">
 
-            <Grid
-            Style="{StaticResource HeaderStyle}">
+            <Grid Style="{StaticResource HeaderStyle}">
 
-                <StackLayout
-                Style="{StaticResource ContainerLogoStyle}">
+                <StackLayout Style="{StaticResource ContainerLogoStyle}">
 
-                    <Image 
-                    Style="{StaticResource LogoStyle}"
-                    Source="logo.png"/>
+                    <Image Style="{StaticResource LogoStyle}"
+                           Source="logo.png"/>
 
-                    <Label 
-                    Style="{StaticResource LogoContentStyle}"
-                    Text="MAUI Messenger"/>
+                    <Label Style="{StaticResource LogoContentStyle}"
+                           Text="MAUI Messenger"/>
 
-                    <Label 
-                    Style="{StaticResource LogoDescriptionStyle}"
-                    Text="A simple messenger built on modern MAUI and NET Micro APIs technologies"/>
+                    <Label Style="{StaticResource LogoDescriptionStyle}"
+                           Text="A simple messenger built on modern MAUI and NET Micro APIs technologies"/>
 
                 </StackLayout>
             </Grid>
 
-            <Frame
-            Grid.Row="1"
-            Style="{StaticResource FooterStyle}">
+            <Frame Grid.Row="1"
+                   Style="{StaticResource FooterStyle}">
 
                 <StackLayout>
 
-                    <Label
-                Style="{StaticResource HeadlineTextStyle}"
-                Text="Sign Up"/>
+                    <Label Style="{StaticResource HeadlineTextStyle}"
+                           Text="Sign Up"/>
 
-                    <Label 
-                    Style="{StaticResource InputLabelStyle}"
-                    Text="Login"/>
+                    <Label Style="{StaticResource InputLabelStyle}"
+                           Text="Login"/>
 
-                    <Entry 
-                    Style="{StaticResource InputEntryStyle}"
-                    Text="{Binding Login}"
-                    />
+                    <Entry Style="{StaticResource InputEntryStyle}"
+                           Text="{Binding Login}" />
 
-                    <Label 
-                    Style="{StaticResource InputLabelStyle}"
-                    Text="Password"/>
+                    <Label Style="{StaticResource InputLabelStyle}"
+                           Text="Password" />
 
-                    <Entry 
-                    IsPassword="True"
-                    Style="{StaticResource InputEntryStyle}"
-                    Text="{Binding Password}"
-                    />
+                    <Entry IsPassword="True"
+                           Style="{StaticResource InputEntryStyle}"
+                           Text="{Binding Password}" />
 
-                    <Button 
-                    Style="{StaticResource ButtonStyle}"
-                    IsEnabled="{Binding ButtonIsActive}"
-                    Command="{Binding LoginCommand}"
-                    Text="Continue" />
+                    <Button Style="{StaticResource ButtonStyle}"
+                            IsEnabled="{Binding ButtonIsActive}"
+                            Command="{Binding LoginCommand}"
+                            Text="Continue" />
 
 
 

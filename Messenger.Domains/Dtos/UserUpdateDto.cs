@@ -6,7 +6,7 @@ namespace Messenger.Domains.Dtos
     public class UserUpdateDto
     {
         [Key]
-        public Guid Guid { get; set; }
+        public Guid GlobalGuid { get; set; }
 
         [Required]
         [MaxLength(32)]

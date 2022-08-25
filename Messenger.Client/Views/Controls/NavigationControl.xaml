@@ -58,7 +58,6 @@
 
                 <ImageButton 
                     Style="{StaticResource NavigationItemStyle}"
-                    Command="{Binding GoToMessangerPageCommand}"
                     Source="icon_messages.png" />
             </StackLayout>
 

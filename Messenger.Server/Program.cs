@@ -5,8 +5,10 @@ using Messenger.Server.Data;
 using Messenger.Server.Repositories.UserRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using NuGet.Protocol.Core.Types;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,7 +75,7 @@ app.MapPost("/api/v1/auth", async (IUserRepository repository, ITokenService tok
     return Results.Ok(token);
 });
 
-app.MapPost("/api/v1/users/", async (IUserRepository repository, IMapper mapper, UserCreateDto user) =>
+app.MapPost("/api/v1/users/", [Authorize] async (IUserRepository repository, IMapper mapper, UserCreateDto user) =>
 {
     User userModel = mapper.Map<User>(user);
 
@@ -90,6 +92,35 @@ app.MapPost("/api/v1/users/", async (IUserRepository repository, IMapper mapper,
 
     return Results.Created($"/api/v1/users/{userModel.GlobalGuid}", userModel);
 });
+
+app.MapPut("/api/v1/users/", [Authorize] async (HttpContext context, IUserRepository repository, ITokenService tokenService, IMapper mapper, UserUpdateDto user) =>
+{
+    var userModel = mapper.Map<User>(user);
+
+    var isCurrentUser = tokenService.VerifyToken(
+        builder.Configuration["Jwt:Key"],
+        builder.Configuration["Jwt:Issuer"],
+        context.Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", ""),
+        userModel.UserName
+        );
+
+    if (isCurrentUser == false) { return Results.Unauthorized(); }
+
+    var checkUser = await repository.GetUserByGuidAsync(userModel.GlobalGuid);
+
+    if (checkUser == null)
+    {
+        return Results.NotFound();
+    }
+
+    userModel = await repository.UpdateUserAsync(userModel);
+
+
+    return Results.Ok(mapper.Map<UserReadDto>(userModel));
+
+});
+
+
 
 
 /*

@@ -21,7 +21,12 @@ namespace Messenger.Client.ViewModels
 
         public DashboardPageViewModel()
         {
+            LoadUserInfo();
+        }
 
+        private void LoadUserInfo()
+        {
+            
         }
 
         [RelayCommand]
