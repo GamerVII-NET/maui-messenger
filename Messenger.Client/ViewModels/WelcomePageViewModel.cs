@@ -1,14 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AutoMapper;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Messenger.Client.Services;
 using Messenger.Client.Views.Pages;
-using Messenger.Domains.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+using Messenger.Domains.Dtos.Auth;
+using Messenger.Domains.Dtos.User;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Messenger.Client.ViewModels
 {
@@ -60,11 +58,18 @@ namespace Messenger.Client.ViewModels
                 return;
             }
 
-            await Shell.Current.GoToAsync(nameof(DashboardPage));
+            string data = await response.Content.ReadAsStringAsync();
 
-            string token = await response.Content.ReadAsStringAsync();
+            var token = JsonConvert.DeserializeObject<AuthTokenDto>(data);
 
-            Preferences.Set("Token", token.Replace("\"", ""));
+            Preferences.Set("Token", token.Token);
+            Preferences.Set("UserGuid", token.UserGuid);
+
+            if (token.Token != null &&
+                token.UserGuid != null)
+            {
+                await Shell.Current.GoToAsync(nameof(DashboardPage));
+            }
 
             _buttonIsActive = true;
         }

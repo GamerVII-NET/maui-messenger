@@ -7,7 +7,7 @@ namespace Messenger.Server.Helpers
 
         internal static void InitServices(WebApplicationBuilder builder, WebApplication app)
         {
-            app.MapPost("/api/v1/auth", AuthService.GetAccesstoken(builder));
+            app.MapPost("/api/v1/auth", AuthService.GetAccessToken(builder));
 
             app.MapGet("/api/v1/users", UserService.GetUsersList());
             app.MapGet("/api/v1/users/{guid}", UserService.GetUserByGuid());

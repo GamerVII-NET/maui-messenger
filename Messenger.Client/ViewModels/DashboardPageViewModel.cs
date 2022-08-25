@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Messenger.Client.Services;
 using Messenger.Client.Views.Pages;
+using Messenger.Domains.Dtos.User;
 using Messenger.Domains.Models;
 using System.Collections.ObjectModel;
 
@@ -19,14 +21,21 @@ namespace Messenger.Client.ViewModels
         [ObservableProperty]
         Chat _selectedChat;
 
+        [ObservableProperty]
+        UserReadDto _user;
+
         public DashboardPageViewModel()
         {
-            LoadUserInfo();
+            LoadUserInfoAsync();
         }
 
-        private void LoadUserInfo()
+        public async Task LoadUserInfoAsync()
         {
-            
+            await Task.Run(async () =>
+            {
+                _user = await UserService.GetUserInfo(Preferences.Get("Token", ""), Preferences.Get("UserGuid", ""));
+
+            });
         }
 
         [RelayCommand]

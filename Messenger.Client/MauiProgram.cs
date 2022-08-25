@@ -23,11 +23,11 @@ namespace Messenger.Client
                     fonts.AddFont("Inter-Thin.ttf", "InterThin");
                 });
 
-            builder.Services.AddSingleton<WelcomePageViewModel>();
-            builder.Services.AddSingleton<WelcomePage>();
+            builder.Services.AddTransient<WelcomePageViewModel>();
+            builder.Services.AddTransient<WelcomePage>();
 
-            builder.Services.AddSingleton<DashboardPageViewModel>();
-            builder.Services.AddSingleton<DashboardPage>();
+            builder.Services.AddTransient<DashboardPageViewModel>();
+            builder.Services.AddTransient<DashboardPage>();
 
             builder.Services.AddSingleton<MessangerPageViewModel>();
             builder.Services.AddSingleton<MessangerPage>();

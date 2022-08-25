@@ -15,6 +15,7 @@ namespace Messenger.Server.Repositories.UserRepository
 
         public async Task<User?> AuthUserAsync(UserAuthDto user)
         {
+            // ToDo: make a normal check authorization
             var authUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == user.UserName);
 
             if (authUser == null)
@@ -89,11 +90,5 @@ namespace Messenger.Server.Repositories.UserRepository
 
             return userModel;
         }
-
-        //public UserDto GetUser(User userModel) =>
-        //_users.FirstOrDefault(c =>
-        //string.Equals(c.UserName, userModel.UserName) &&
-        //string.Equals(c.Password, userModel.Password)) ??
-        //throw new Exception("User not found");
     }
 }

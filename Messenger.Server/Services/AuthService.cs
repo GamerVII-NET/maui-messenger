@@ -6,22 +6,25 @@ namespace Messenger.Server.Services
     public class AuthService
     {
 
-        internal static Func<IUserRepository, ITokenService, UserAuthDto, Task<IResult>> GetAccesstoken(WebApplicationBuilder builder)
+        internal static Func<IUserRepository, ITokenService, UserAuthDto, Task<IResult>> GetAccessToken(WebApplicationBuilder builder)
         {
-            return async (IUserRepository repository, ITokenService tokenService, UserAuthDto user) =>
+            return async (IUserRepository repository, ITokenService tokenService, UserAuthDto authUser) =>
             {
-                var userDto = await repository.AuthUserAsync(user);
+                var user = await repository.AuthUserAsync(authUser);
 
-                if (userDto == null) return Results.Unauthorized();
+                if (user == null) return Results.Unauthorized();
 
                 var token = tokenService.BuildToken(
                     builder.Configuration["Jwt:Key"],
                     builder.Configuration["Jwt:Issuer"],
-                    userDto
+                    user
                     );
 
-                //return Task.FromResult(Results.Ok(userDto));
-                return Results.Ok(token);
+                return Results.Json(new
+                {
+                    UserGuid = user.GlobalGuid,
+                    Token = token
+                });
             };
         }
     }

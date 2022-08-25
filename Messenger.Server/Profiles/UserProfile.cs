@@ -7,7 +7,7 @@ namespace Messenger.Server.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserReadDto>();
+            CreateMap<User, Domains.Dtos.User.UserReadDto>();
             CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
         }

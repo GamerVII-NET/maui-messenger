@@ -13,15 +13,15 @@ namespace Messenger.Server.Services
             {
                 var users = await repository.GetAllUsersAsync();
 
-                return Results.Ok(mapper.Map<IEnumerable<UserReadDto>>(users));
+                return Results.Ok(mapper.Map<IEnumerable<Domains.Dtos.User.UserReadDto>>(users));
             };
         }
 
         internal static Func<IUserRepository, IMapper, Guid, Task<IResult>> GetUserByGuid()
         {
-            return async (IUserRepository repository, IMapper mapper, Guid guid) =>
+            return [Authorize] async (IUserRepository repository, IMapper mapper, Guid guid) =>
             await repository.GetUserByGuidAsync(guid) is User userModel
-                ? Results.Ok(mapper.Map<UserReadDto>(userModel))
+                ? Results.Ok(mapper.Map<Domains.Dtos.User.UserReadDto>(userModel))
             : Results.NotFound();
         }
 
@@ -71,7 +71,7 @@ namespace Messenger.Server.Services
                 userModel = await repository.UpdateUserAsync(userModel);
 
 
-                return Results.Ok(mapper.Map<UserReadDto>(userModel));
+                return Results.Ok(mapper.Map<Domains.Dtos.User.UserReadDto>(userModel));
 
             };
         }

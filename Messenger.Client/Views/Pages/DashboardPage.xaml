@@ -125,9 +125,17 @@
                         Source="search.png"/>
                     </Grid>
 
-                    <Label 
-                    Style="{StaticResource SectionHeadlineStyle}"
-                    Text="Team messages"/>
+                    <Label Style="{StaticResource SectionHeadlineStyle}"
+                           Text="Team messages"/>
+
+                    <Label Text="{Binding User.FirstName}" 
+                           Style="{StaticResource SectionHeadlineStyle}"/>
+
+                    <Label Text="{Binding User.LastName}" 
+                           Style="{StaticResource SectionHeadlineStyle}"/>
+
+                    <Label Text="{Binding User.Patronymic}" 
+                           Style="{StaticResource SectionHeadlineStyle}"/>
 
                     <CollectionView
                         ItemTemplate="{StaticResource MessageDataTemplateSelector}"
