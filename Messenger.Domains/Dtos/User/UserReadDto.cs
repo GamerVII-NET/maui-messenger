@@ -1,19 +1,12 @@
 ﻿using Messenger.Domains.Models;
-using System.ComponentModel.DataAnnotations;
 
-namespace Messenger.Domains.Dtos
+namespace Messenger.Domains.Dtos.User
 {
-    public class UserUpdateDto
+    public class UserReadDto
     {
-        [Key]
         public Guid GlobalGuid { get; set; }
 
-        [Required]
-        [MaxLength(32)]
         public string UserName { get; set; } = string.Empty;
-
-        [Required]
-        public string Password { get; set; } = string.Empty;
 
         public string FirstName { get; set; } = string.Empty;
 
@@ -34,6 +27,5 @@ namespace Messenger.Domains.Dtos
         public bool Confirmed { get; set; } = false;
 
         public IEnumerable<Chat> Chats { get; set; } = Enumerable.Empty<Chat>();
-
     }
 }

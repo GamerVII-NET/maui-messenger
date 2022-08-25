@@ -1,4 +1,4 @@
-﻿using Messenger.Domains.Dtos;
+﻿using Messenger.Domains.Dtos.User;
 
 namespace Messenger.Server.Repositories.UserRepository
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Messenger.Domains.Dtos;
+using Messenger.Domains.Dtos.User;
 
 namespace Messenger.Server.Profiles
 {

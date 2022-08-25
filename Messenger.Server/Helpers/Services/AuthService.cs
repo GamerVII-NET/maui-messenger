@@ -1,4 +1,5 @@
-﻿using Messenger.Server.Repositories.UserRepository;
+﻿using Messenger.Domains.Dtos.User;
+using Messenger.Server.Repositories.UserRepository;
 
 namespace Messenger.Server.Helpers.Services
 {

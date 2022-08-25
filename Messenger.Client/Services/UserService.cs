@@ -1,4 +1,4 @@
-﻿using Messenger.Domains.Dtos;
+﻿using Messenger.Domains.Dtos.User;
 using Messenger.Domains.Models;
 
 namespace Messenger.Client.Services
