@@ -1,7 +1,7 @@
 ﻿using Messenger.Domains.Dtos.User;
 using Messenger.Server.Repositories.UserRepository;
 
-namespace Messenger.Server.Helpers.Services
+namespace Messenger.Server.Services
 {
     public class AuthService
     {

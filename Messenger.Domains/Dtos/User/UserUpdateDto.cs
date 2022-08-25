@@ -5,14 +5,10 @@ namespace Messenger.Domains.Dtos.User
 {
     public class UserUpdateDto
     {
-        [Key]
         public Guid GlobalGuid { get; set; }
 
-        [Required]
-        [MaxLength(32)]
         public string UserName { get; set; } = string.Empty;
 
-        [Required]
         public string Password { get; set; } = string.Empty;
 
         public string FirstName { get; set; } = string.Empty;

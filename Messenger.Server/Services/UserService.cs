@@ -3,7 +3,7 @@ using Messenger.Domains.Dtos.User;
 using Messenger.Server.Repositories.UserRepository;
 using Microsoft.Net.Http.Headers;
 
-namespace Messenger.Server.Helpers.Services
+namespace Messenger.Server.Services
 {
     public class UserService
     {

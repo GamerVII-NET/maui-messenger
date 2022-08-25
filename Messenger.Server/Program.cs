@@ -1,8 +1,7 @@
-using AutoMapper;
+using Messenger.Server.Extensions;
 using Messenger.Server.Helpers;
 using Messenger.Server.Repositories.UserRepository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +41,7 @@ if (app.Environment.IsDevelopment())
 
 ServicesManager.InitServices(builder, app);
 
-app.MapGet("/", () => "Hello Messenger!");
+app.MapGet("/", () => Results.Extensions.Html(@"HelloMessenger</br><a href=""/swagger/"">Swagger</a>"));
 
 app.Run();
 
