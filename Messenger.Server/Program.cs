@@ -41,6 +41,8 @@ if (app.Environment.IsDevelopment())
 
 ServicesManager.InitServices(builder, app);
 
+//app.MapPost("/api/v1/chats", async ());
+
 app.MapGet("/", () => Results.Extensions.Html(@"HelloMessenger</br><a href=""/swagger/"">Swagger</a>"));
 
 app.Run();

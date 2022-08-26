@@ -40,7 +40,7 @@ namespace Messenger.Domains.Models
 
         public override string ToString()
         {
-            return $"{GlobalGuid} - {FirstName} {LastName} {Patronymic}";
+            return $"{GlobalGuid} | {UserName}";
         }
 
     }

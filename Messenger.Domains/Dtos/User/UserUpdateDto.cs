@@ -1,4 +1,5 @@
-﻿using Messenger.Domains.Models;
+﻿using Messenger.Domains.Dtos.Chat;
+using Messenger.Domains.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.Domains.Dtos.User
@@ -29,7 +30,7 @@ namespace Messenger.Domains.Dtos.User
 
         public bool Confirmed { get; set; } = false;
 
-        public IEnumerable<Chat> Chats { get; set; } = Enumerable.Empty<Chat>();
+        public IEnumerable<ChatReadDto> Chats { get; set; } = Enumerable.Empty<ChatReadDto>();
 
     }
 }

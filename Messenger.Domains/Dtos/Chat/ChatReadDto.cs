@@ -1,28 +1,24 @@
 ﻿using Enums;
+using Messenger.Domains.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Messenger.Domains.Models
+namespace Messenger.Domains.Dtos.Chat
 {
-    [Table("Chats")]
-    public class Chat
+    public class ChatReadDto
     {
-        [Key]
-        public Guid GlobalGuid { get; set; }
-
-        [Required]
-        [MaxLength(32)]
         public string Name { get; set; }
 
         public string Photo { get; set; }
 
-        [MaxLength(256)]
         public string About { get; set; }
 
         public ChatType Type { get; set; }
 
         public IEnumerable<ChatUser> Users { get; set; } = Enumerable.Empty<ChatUser>();
-
-
     }
 }

@@ -13,6 +13,8 @@ namespace Messenger.Server.Helpers
             app.MapGet("/api/v1/users/{guid}", UserService.GetUserByGuid());
             app.MapPost("/api/v1/users/", UserService.CreateUser());
             app.MapPut("/api/v1/users/", UserService.UpdateUser(builder));
+
+
         }
     }
 
