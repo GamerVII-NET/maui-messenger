@@ -86,8 +86,6 @@ namespace Messenger.Server.Repositories.UserRepository
             userModel.Patronymic = user.Patronymic;
             userModel.Password = user.Password;
 
-            await _context.SaveChangesAsync();
-
             return userModel;
         }
     }

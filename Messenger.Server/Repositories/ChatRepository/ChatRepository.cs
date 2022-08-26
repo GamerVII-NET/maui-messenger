@@ -34,7 +34,9 @@ namespace Messenger.Server.Repositories.ChatRepository
                 throw new ArgumentNullException(nameof(chat));
             }
 
-            var checkChat = await _context.Chats.FirstOrDefaultAsync(c => c.GlobalGuid == chat.GlobalGuid);
+            var checkChat = await _context.Chats
+                .Include(c => c.Users)
+                .FirstOrDefaultAsync(c => c.GlobalGuid == chat.GlobalGuid);
 
             if (checkChat == null) { return null; }
 
@@ -42,18 +44,26 @@ namespace Messenger.Server.Repositories.ChatRepository
 
             if (checkUserInChat != null) { return checkChat; }
 
-            var newUserChat = new ChatUser
+            var chatUser = new ChatUser
             {
+                Chat = chat,
                 User = user,
                 UserRole = Domains.Enums.ChatRole.Default
+
             };
 
-            var newUserChatModel = await _context.AddAsync(newUserChat);
+            var newUserChatModel = await _context.ChatUsers.AddAsync(chatUser);
 
-            var chatModel = await _context.Chats.Include(c => c.Users)
-                .FirstOrDefaultAsync(c => c.GlobalGuid == newUserChatModel.Entity.GlobalGuid);
+            chat.Users.Add(newUserChatModel.Entity);
 
-            return chatModel;
+            var chatModel = _context.Update(checkChat);
+
+            if (chatModel == null)
+            {
+                return null;
+            }
+
+            return chatModel.Entity;
         }
 
         public async Task<Chat?> CreateChat(User user, Chat chat)

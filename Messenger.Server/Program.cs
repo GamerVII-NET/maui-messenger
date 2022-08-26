@@ -16,7 +16,6 @@ builder.Services.AddSwaggerGen(options => Swagger.GenerateConfig(options));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 
-
 builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -56,11 +55,13 @@ app.MapGet("/api/v1/chats", [Authorize] async (IChatRepository repository, IMapp
 app.MapPost("/api/v1/chats", [Authorize] async (IChatRepository repository, IMapper mapper, ChatCreateDto chat) =>
 {
     var chatModel = mapper.Map<Chat>(chat.Chat);
-    var userModel = mapper.Map<User>(chat.Author);
+    var userModel = mapper.Map<User>(chat.User);
 
     var createdChat = await repository.CreateChat(userModel, chatModel);
 
-    return Results.Created($"/api/v1/chats/{createdChat.GlobalGuid}", createdChat);
+    await repository.SaveChanges();
+
+    return Results.Created($"/api/v1/chats/{createdChat.GlobalGuid}", mapper.Map<ChatReadDto>(createdChat));
 });
 
 app.MapGet("/", () => Results.Extensions.Html(@"HelloMessenger</br><a href=""/swagger/"">Swagger</a>"));

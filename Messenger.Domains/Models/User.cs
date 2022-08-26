@@ -36,7 +36,7 @@ namespace Messenger.Domains.Models
 
         public bool Confirmed { get; set; } = false;
 
-        public virtual IEnumerable<ChatUser> UserChats { get; set; } = Enumerable.Empty<ChatUser>();
+        public List<ChatUser> UserChats { get; set; } = new List<ChatUser>();
 
         public override string ToString()
         {

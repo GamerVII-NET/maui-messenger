@@ -14,9 +14,5 @@ namespace Messenger.Domains.Dtos.Chat
         public string About { get; set; }
 
         public ChatType Type { get; set; }
-
-        public virtual IEnumerable<ChatUser> Users { get; set; } = Enumerable.Empty<ChatUser>();
-
-        public virtual IEnumerable<Message> Messages { get; set; } = Enumerable.Empty<Message>();
     }
 }

@@ -5,7 +5,7 @@ namespace Messenger.Domains.Dtos.Chat
 {
     public class ChatCreateDto
     {
-        public UserUpdateDto Author { get; set; }
+        public ChatUserCreateDto User { get; set; }
         
         public ChatNewDto Chat { get; set; }
 

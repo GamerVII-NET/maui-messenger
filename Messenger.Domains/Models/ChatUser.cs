@@ -10,11 +10,11 @@ namespace Messenger.Domains.Models
     public class ChatUser
     {
         [Key]
-        public Guid GlobalGuid;
+        public Guid GlobalGuid { get; set; }
 
-        public virtual Chat Chat { get; set; }
+        public Chat Chat { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
         public User? InviterUser { get; set; }
 

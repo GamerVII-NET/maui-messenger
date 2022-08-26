@@ -25,7 +25,7 @@ namespace Messenger.Domains.Models
 
         public DateTime SendingTime { get; set; }
 
-        public virtual IEnumerable<Attachment> Attachments { get; set; } = Enumerable.Empty<Attachment>();
+        public List<Attachment> Attachments { get; set; } = new List<Attachment>();
 
     }
 }

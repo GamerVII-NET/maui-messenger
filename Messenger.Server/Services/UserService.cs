@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Messenger.Domains.Dtos.User;
 using Messenger.Server.Repositories.UserRepository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 
 namespace Messenger.Server.Services
@@ -70,6 +71,7 @@ namespace Messenger.Server.Services
 
                 userModel = await repository.UpdateUserAsync(userModel);
 
+                await repository.SaveChangesAsync();
 
                 return Results.Ok(mapper.Map<UserReadDto>(userModel));
 

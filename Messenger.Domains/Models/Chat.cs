@@ -21,8 +21,8 @@ namespace Messenger.Domains.Models
 
         public ChatType Type { get; set; }
 
-        public virtual IEnumerable<ChatUser> Users { get; set; } = Enumerable.Empty<ChatUser>();
-        public virtual IEnumerable<Message> Messages { get; set; } = Enumerable.Empty<Message>();
+        public List<ChatUser> Users { get; set; } = new List<ChatUser>();
+        public List<Message> Messages { get; set; } = new List<Message>();
 
 
     }

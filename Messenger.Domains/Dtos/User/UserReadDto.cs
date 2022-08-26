@@ -27,6 +27,6 @@ namespace Messenger.Domains.Dtos.User
 
         public bool Confirmed { get; set; } = false;
 
-        public IEnumerable<ChatReadDto> Chats { get; set; } = Enumerable.Empty<ChatReadDto>();
+        public IEnumerable<ChatReadDto> Chats { get; set; } = new List<ChatReadDto>();
     }
 }

@@ -12,7 +12,7 @@ namespace Messenger.Domains.Models
 
         public AttachmentType Type { get; set; }
 
-        public virtual Message Message { get; set; }
+        public Message Message { get; set; }
 
         public string Hash { get; set; } = string.Empty;
 
