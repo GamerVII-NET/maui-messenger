@@ -13,17 +13,21 @@ namespace Messenger.Domains.Models
     public class Message
     {
         [Key]
+        public int Id { get; set; }
+
         public Guid Guid { get; set; }
 
         public Guid SenderGuid { get; set; }
 
         public Message? ReplyTo { get; set; }
 
-        public Chat ChatModel { get; set; }
+        public Chat Chat { get; set; }
 
         public DateTime UpdatedAt { get; set; }
 
         public DateTime SendingTime { get; set; }
+
+        public virtual IEnumerable<Attachment> Attachments { get; set; } = Enumerable.Empty<Attachment>();
 
     }
 }

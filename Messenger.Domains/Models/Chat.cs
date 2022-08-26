@@ -8,6 +8,8 @@ namespace Messenger.Domains.Models
     public class Chat
     {
         [Key]
+        public int Id { get; set; }
+
         public Guid GlobalGuid { get; set; }
 
         [Required]
@@ -21,7 +23,8 @@ namespace Messenger.Domains.Models
 
         public ChatType Type { get; set; }
 
-        public IEnumerable<ChatUser> Users { get; set; } = Enumerable.Empty<ChatUser>();
+        public virtual IEnumerable<ChatUser> Users { get; set; } = Enumerable.Empty<ChatUser>();
+        public virtual IEnumerable<Message> Messages { get; set; } = Enumerable.Empty<Message>();
 
 
     }

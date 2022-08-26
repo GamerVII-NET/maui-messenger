@@ -9,6 +9,8 @@ namespace Messenger.Domains.Models
     public class User
     {
         [Key]
+        public int Id { get; set; }
+
         public Guid GlobalGuid { get; set; }
 
         [Required]
@@ -36,7 +38,7 @@ namespace Messenger.Domains.Models
 
         public bool Confirmed { get; set; } = false;
 
-        public IEnumerable<Chat> Chats { get; set; } = Enumerable.Empty<Chat>();
+        public virtual IEnumerable<ChatUser> UserChats { get; set; } = Enumerable.Empty<ChatUser>();
 
         public override string ToString()
         {

@@ -9,11 +9,13 @@ namespace Messenger.Domains.Models
     [Table("ChatUsers")]
     public class ChatUser
     {
+        [Key]
+        public int Id { get; set; }
+
         public Guid GlobalGuid;
+        public virtual Chat Chat { get; set; }
 
-        public Chat Chat { get; set; }
-
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public User? InviterUser { get; set; }
 

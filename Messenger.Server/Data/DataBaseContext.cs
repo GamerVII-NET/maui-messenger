@@ -13,6 +13,34 @@ namespace Messenger.Server.Data
         public DbSet<Attachment> Attachments => Set<Attachment>();
         public DbSet<ChatUser> ChatUsers => Set<ChatUser>();
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ChatUser>()
+                .HasAlternateKey(c => c.Id);
+
+            // One chat -> More users
+            modelBuilder.Entity<Chat>()
+                .HasMany(c => c.Users)
+                .WithOne(c => c.Chat);
+
+            // One chat -> More messages
+            modelBuilder.Entity<Chat>()
+                .HasMany(c => c.Messages)
+                .WithOne(c => c.Chat);
+
+            // One message -> More attachments
+            modelBuilder.Entity<Message>()
+                .HasMany(c => c.Attachments)
+                .WithOne(c => c.Message);
+
+            // One user -> More chats
+            modelBuilder.Entity<User>()
+                .HasMany(c => c.UserChats)
+                .WithOne(c => c.User);
+
+
+        }
+
 
     }
 }
