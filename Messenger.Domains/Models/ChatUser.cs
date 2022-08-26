@@ -10,26 +10,25 @@ namespace Messenger.Domains.Models
     public class ChatUser
     {
         [Key]
-        public int Id { get; set; }
-
         public Guid GlobalGuid;
+
         public virtual Chat Chat { get; set; }
 
         public virtual User User { get; set; }
 
         public User? InviterUser { get; set; }
 
-        public bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
 
-        public bool Banned { get; set; }
+        public bool Banned { get; set; } = false;
 
-        public bool IsMuted { get; set; }
+        public bool IsMuted { get; set; } = false;
 
-        public ChatRole UserRole { get; set; }
+        public ChatRole UserRole { get; set; } = ChatRole.Default;
 
-        public DateTime Joined { get; set; }
+        public DateTime Joined { get; set; } = DateTime.Now;
 
-        public DateTime MuteEnd { get; set; }
+        public DateTime? MuteEnd { get; set; }
 
     }
 }

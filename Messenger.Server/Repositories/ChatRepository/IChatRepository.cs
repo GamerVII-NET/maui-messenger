@@ -8,11 +8,13 @@
 
         Task<Chat?> SearchChatByName(string name);
 
-        Task<Chat> CreateChat(User user, Chat chat);
+        Task<Chat?> CreateChat(User user, Chat chat);
+
+        Task<Chat?> AddUserToChat(User user, Chat chat);
 
         Task<Chat> UpdateChat(Chat chat);
 
-        Task<IEnumerable<Chat>> GetAllChats();
+        Task<IEnumerable<Chat>> GetAllChatsAsync();
 
         void DeleteChat(Chat chat);
 

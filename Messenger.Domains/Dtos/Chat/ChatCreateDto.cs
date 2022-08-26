@@ -5,10 +5,10 @@ namespace Messenger.Domains.Dtos.Chat
 {
     public class ChatCreateDto
     {
-        public Guid GlobalGuid { get; set; }
+        public UserUpdateDto Author { get; set; }
         
-        public ChatType Type { get; set; }
+        public ChatNewDto Chat { get; set; }
 
-        public IEnumerable<UserReadDto> Users { get; set; } = Enumerable.Empty<UserReadDto>();
+        public ChatType Type { get; set; }
     }
 }

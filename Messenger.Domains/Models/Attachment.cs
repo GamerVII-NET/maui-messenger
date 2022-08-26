@@ -8,9 +8,7 @@ namespace Messenger.Domains.Models
     public class Attachment
     {
         [Key]
-        public int Id { get; set; }
-
-        public Guid Guid { get; set; }
+        public Guid GlobalGuid { get; set; }
 
         public AttachmentType Type { get; set; }
 

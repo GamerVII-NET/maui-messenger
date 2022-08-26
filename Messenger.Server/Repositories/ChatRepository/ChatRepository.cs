@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,12 @@ namespace Messenger.Server.Repositories.ChatRepository
             _context = context;
         }
 
-        public Task<Chat> CreateChat(User user, Chat chat)
+        public async Task<IEnumerable<Chat>> GetAllChatsAsync()
+        {
+            return await _context.Chats!.ToListAsync();
+        }
+
+        public async Task<Chat?> AddUserToChat(User user, Chat chat)
         {
             if (user == null)
             {
@@ -28,18 +34,49 @@ namespace Messenger.Server.Repositories.ChatRepository
                 throw new ArgumentNullException(nameof(chat));
             }
 
+            var checkChat = await _context.Chats.FirstOrDefaultAsync(c => c.GlobalGuid == chat.GlobalGuid);
 
-            throw new NotImplementedException();
+            if (checkChat == null) { return null; }
 
+            var checkUserInChat = checkChat.Users.FirstOrDefault(c => c.User.GlobalGuid == user.GlobalGuid);
+
+            if (checkUserInChat != null) { return checkChat; }
+
+            var newUserChat = new ChatUser
+            {
+                User = user,
+                UserRole = Domains.Enums.ChatRole.Default
+            };
+
+            var newUserChatModel = await _context.AddAsync(newUserChat);
+
+            var chatModel = await _context.Chats.Include(c => c.Users)
+                .FirstOrDefaultAsync(c => c.GlobalGuid == newUserChatModel.Entity.GlobalGuid);
+
+            return chatModel;
+        }
+
+        public async Task<Chat?> CreateChat(User user, Chat chat)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (chat == null)
+            {
+                throw new ArgumentNullException(nameof(chat));
+            }
+            
+            var chatModel = await _context.Chats.AddAsync(chat);
+
+            await _context.SaveChangesAsync();
+
+            return await AddUserToChat(user, chatModel.Entity);
 
         }
 
         public void DeleteChat(Chat chat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Chat>> GetAllChats()
         {
             throw new NotImplementedException();
         }
@@ -49,9 +86,9 @@ namespace Messenger.Server.Repositories.ChatRepository
             throw new NotImplementedException();
         }
 
-        public Task SaveChanges()
+        public async Task SaveChanges()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
         public Task<Chat?> SearchChatByName(string name)

@@ -13,9 +13,7 @@ namespace Messenger.Domains.Models
     public class Message
     {
         [Key]
-        public int Id { get; set; }
-
-        public Guid Guid { get; set; }
+        public Guid GlobalGuid { get; set; }
 
         public Guid SenderGuid { get; set; }
 

@@ -1,12 +1,11 @@
 ﻿using Enums;
 using Messenger.Domains.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.Domains.Dtos.Chat
 {
-    public class ChatReadDto
+    public class ChatNewDto
     {
-        public Guid GlobalGuid { get; set; }
-
         public string Name { get; set; }
 
         public string Photo { get; set; }
@@ -14,9 +13,5 @@ namespace Messenger.Domains.Dtos.Chat
         public string About { get; set; }
 
         public ChatType Type { get; set; }
-
-        public virtual IEnumerable<ChatUser> Users { get; set; } = Enumerable.Empty<ChatUser>();
-
-        public virtual IEnumerable<Message> Messages { get; set; } = Enumerable.Empty<Message>();
     }
 }

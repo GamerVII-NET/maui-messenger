@@ -1,5 +1,9 @@
+using AutoMapper;
+using Messenger.Domains.Dtos.Chat;
+using Messenger.Domains.Dtos.User;
 using Messenger.Server.Extensions;
 using Messenger.Server.Helpers;
+using Messenger.Server.Repositories.ChatRepository;
 using Messenger.Server.Repositories.UserRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +27,7 @@ builder.Services
 
 builder.Services.AddSingleton<ITokenService>(new TokenService());
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IChatRepository, ChatRepository>();
 
 var app = builder.Build();
 
@@ -41,7 +46,22 @@ if (app.Environment.IsDevelopment())
 
 ServicesManager.InitServices(builder, app);
 
-//app.MapPost("/api/v1/chats", async ());
+app.MapGet("/api/v1/chats", [Authorize] async (IChatRepository repository, IMapper mapper) =>
+{
+    var chats = await repository.GetAllChatsAsync();
+
+    return Results.Ok(mapper.Map<IEnumerable<ChatReadDto>>(chats));
+});
+
+app.MapPost("/api/v1/chats", [Authorize] async (IChatRepository repository, IMapper mapper, ChatCreateDto chat) =>
+{
+    var chatModel = mapper.Map<Chat>(chat.Chat);
+    var userModel = mapper.Map<User>(chat.Author);
+
+    var createdChat = await repository.CreateChat(userModel, chatModel);
+
+    return Results.Created($"/api/v1/chats/{createdChat.GlobalGuid}", createdChat);
+});
 
 app.MapGet("/", () => Results.Extensions.Html(@"HelloMessenger</br><a href=""/swagger/"">Swagger</a>"));
 

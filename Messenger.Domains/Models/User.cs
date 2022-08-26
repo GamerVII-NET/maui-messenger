@@ -9,8 +9,6 @@ namespace Messenger.Domains.Models
     public class User
     {
         [Key]
-        public int Id { get; set; }
-
         public Guid GlobalGuid { get; set; }
 
         [Required]

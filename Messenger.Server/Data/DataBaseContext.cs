@@ -16,12 +16,11 @@ namespace Messenger.Server.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ChatUser>()
-                .HasAlternateKey(c => c.Id);
+                .HasKey(c => c.GlobalGuid);
 
-            // One chat -> More users
-            modelBuilder.Entity<Chat>()
-                .HasMany(c => c.Users)
-                .WithOne(c => c.Chat);
+            modelBuilder.Entity<User>()
+                .HasKey(c => c.GlobalGuid);
+
 
             // One chat -> More messages
             modelBuilder.Entity<Chat>()
@@ -33,10 +32,15 @@ namespace Messenger.Server.Data
                 .HasMany(c => c.Attachments)
                 .WithOne(c => c.Message);
 
-            // One user -> More chats
+            // One user -> More ChatUsers
             modelBuilder.Entity<User>()
                 .HasMany(c => c.UserChats)
                 .WithOne(c => c.User);
+
+            // More chat -> More users
+            modelBuilder.Entity<Chat>()
+                .HasMany(c => c.Users)
+                .WithOne(c => c.Chat);
 
 
         }
