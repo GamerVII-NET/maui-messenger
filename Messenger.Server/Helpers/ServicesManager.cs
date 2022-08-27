@@ -14,6 +14,9 @@ namespace Messenger.Server.Helpers
             app.MapPost("/api/v1/users/", UserService.CreateUser());
             app.MapPut("/api/v1/users/", UserService.UpdateUser(builder));
 
+            app.MapGet("/api/v1/chats", ChatService.GetChatsList());
+            app.MapPost("/api/v1/chats", ChatService.CreateChat());
+
 
         }
     }

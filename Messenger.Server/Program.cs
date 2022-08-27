@@ -45,27 +45,6 @@ if (app.Environment.IsDevelopment())
 
 ServicesManager.InitServices(builder, app);
 
-app.MapGet("/api/v1/chats", [Authorize] async (IChatRepository repository, IMapper mapper) =>
-{
-    var chats = await repository.GetAllChatsAsync();
-
-    return Results.Ok(mapper.Map<IEnumerable<ChatReadDto>>(chats));
-});
-
-app.MapPost("/api/v1/chats", [Authorize] async (IChatRepository repository, IMapper mapper, ChatCreateDto chat) =>
-{
-    var chatModel = mapper.Map<Chat>(chat.Chat);
-    var userModel = mapper.Map<User>(chat.User);
-
-    var createdChat = await repository.CreateChat(userModel, chatModel);
-
-    await repository.SaveChanges();
-
-    return Results.Created($"/api/v1/chats/{createdChat.GlobalGuid}", mapper.Map<ChatReadDto>(createdChat));
-});
-
 app.MapGet("/", () => Results.Extensions.Html(@"HelloMessenger</br><a href=""/swagger/"">Swagger</a>"));
 
 app.Run();
-
-

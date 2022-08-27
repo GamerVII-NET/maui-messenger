@@ -37,22 +37,25 @@ namespace Messenger.Server.Repositories.ChatRepository
             var checkChat = await _context.Chats
                 .Include(c => c.Users)
                 .FirstOrDefaultAsync(c => c.GlobalGuid == chat.GlobalGuid);
-
+                
             if (checkChat == null) { return null; }
 
             var checkUserInChat = checkChat.Users.FirstOrDefault(c => c.User.GlobalGuid == user.GlobalGuid);
 
             if (checkUserInChat != null) { return checkChat; }
 
+            user = await _context.Users.FirstOrDefaultAsync(c => c.GlobalGuid == user.GlobalGuid);
+
             var chatUser = new ChatUser
             {
                 Chat = chat,
-                User = user,
                 UserRole = Domains.Enums.ChatRole.Default
 
             };
 
-            var newUserChatModel = await _context.ChatUsers.AddAsync(chatUser);
+            var newUserChatModel = await _context.AddAsync(chatUser);
+
+            newUserChatModel.Entity.User = user;
 
             chat.Users.Add(newUserChatModel.Entity);
 

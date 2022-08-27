@@ -8,6 +8,6 @@ namespace Messenger.Domains.Dtos.Chat
 {
     public class ChatUserCreateDto
     {
-        public Guid UserGuid { get; set; }
+        public Guid GlobalGuid { get; set; }
     }
 }
