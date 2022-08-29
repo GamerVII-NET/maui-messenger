@@ -128,18 +128,8 @@
                     <Label Style="{StaticResource SectionHeadlineStyle}"
                            Text="Team messages"/>
 
-                    <Label Text="{Binding User.FirstName}" 
-                           Style="{StaticResource SectionHeadlineStyle}"/>
-
-                    <Label Text="{Binding User.LastName}" 
-                           Style="{StaticResource SectionHeadlineStyle}"/>
-
-                    <Label Text="{Binding User.Patronymic}" 
-                           Style="{StaticResource SectionHeadlineStyle}"/>
-
                     <CollectionView
                         ItemTemplate="{StaticResource MessageDataTemplateSelector}"
-                        SelectedItem="{Binding SelectedChat}"
                         ItemsSource="{Binding Chats,
                         Converter={converters:GetChatsConverter},
                         ConverterParameter=0}">
@@ -151,7 +141,6 @@
 
                     <CollectionView
                         ItemTemplate="{StaticResource MessageDataTemplateSelector}"
-                        SelectedItem="{Binding SelectedChat}"
                         ItemsSource="{Binding Chats,
                         Converter={converters:GetChatsConverter},
                         ConverterParameter=1}">
@@ -198,7 +187,7 @@
                     Grid.Column="2"
                     Style="{StaticResource ProfileAvatarContainerStyle}">
                     <Frame Style="{StaticResource ProfileAvatarImage}">
-                        <Image Source="profile.jpg" Aspect="AspectFill"/>
+                        <Image Source="{Binding User.Photo}" Aspect="AspectFill"/>
                     </Frame>
                 </StackLayout>
 

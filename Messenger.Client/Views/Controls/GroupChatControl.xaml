@@ -2,9 +2,9 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Messenger.Client.Views.Converters"
-             xmlns:models="clr-namespace:Messenger.Domains.Models;assembly=Messenger.Domains"
+             xmlns:models="clr-namespace:Messenger.Domains.Dtos.ChatUser;assembly=Messenger.Domains"
              x:Class="Messenger.Client.Views.Controls.GroupChatControl"
-             x:DataType="models:Chat">
+             x:DataType="models:ChatUserChatsReadDto">
     <ContentView.Resources>
         <ResourceDictionary>
 
@@ -38,7 +38,7 @@
                 <Setter Property="FontFamily" Value="InterMedium" />
                 <Setter Property="FontSize" Value="11" />
                 <Setter Property="LineBreakMode" Value="TailTruncation" />
-                <Setter Property="Margin" Value="0, 2, 0, 0" />
+                <Setter Property="Margin" Value="0, 5, 0, 0" />
             </Style>
 
             <Style x:Key="OnlineStatusStyle" TargetType="Ellipse">
@@ -57,7 +57,6 @@
                 <Setter Property="FontSize" Value="11" />
                 <Setter Property="TextColor" Value="#768194" />
                 <Setter Property="HorizontalTextAlignment" Value="End" />
-                <Setter Property="Background" Value="#2000FFFF" />
             </Style>
 
             <Color x:Key="CountContainerColor">#DF625D</Color>
@@ -82,48 +81,39 @@
     </ContentView.Resources>
 
     <VerticalStackLayout>
-        <Grid 
-            Style="{StaticResource MessageContainer}"
-            ColumnDefinitions="40, 160, *">
+        
+        <Grid Style="{StaticResource MessageContainer}"
+              ColumnDefinitions="40, 160, *"
+              RowDefinitions="*, *">
+            
             <Grid>
 
                 <Frame
                     Style="{StaticResource AvatarFrameStyle}">
-                    <CollectionView ItemsSource="{Binding}">
+                    <!--<CollectionView ItemsSource="{Binding}">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="{x:Type models:User}">
-                                <Image Source="{Binding Photo}"
-                                       Aspect="AspectFill"/>
+                            <DataTemplate x:DataType="{x:Type models:ChatUserChatsReadDto}">
+                                
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    </CollectionView>-->
+                    <Image Source="{Binding Chat.Photo}"
+                                       Aspect="AspectFill"/>
                 </Frame>
-
-                <Ellipse 
-                    Style="{StaticResource OnlineStatusStyle}">
-
-                </Ellipse>
             </Grid>
 
             <Grid RowDefinitions="*, *" Grid.Column="1">
 
                 <StackLayout Style="{StaticResource InitialsContainer}">
 
-                    <!--<Label Style="{StaticResource InitialsLabelStyle}"
-                           Text="{Binding ChatName}"/>-->
+                    <Label Style="{StaticResource InitialsLabelStyle}"
+                           Text="{Binding Chat.Name}"/>
 
-                    <!--<Label 
-                        Style="{StaticResource InitialsLabelStyle}"
-                        Text="{Binding User.LastName}"/>
-
-                    <Label 
-                        Style="{StaticResource InitialsLabelStyle}"
-                        Text="{Binding User.FirstName}"/>-->
                 </StackLayout>
 
-                <!--<Label Grid.Row="1"
+                <Label Grid.Row="1"
                        Style="{StaticResource MessageContentStyle}"
-                       Text="{Binding LastMessage}"/>-->
+                       Text="{Binding Chat.Name}"/>
             </Grid>
 
             <Grid 
@@ -131,19 +121,19 @@
                 Margin="0, 0, 18, 0"
                 Grid.Column="2">
                 
-                <!--<Label Style="{StaticResource LastMessageLabelStyle}"
-                       Text="{Binding LastMessageDate, Converter={converters:LastMessageDateConverter}}"
+                <Label Style="{StaticResource LastMessageLabelStyle}"
+                       Text="{Binding Chat.Name, Converter={converters:LastMessageDateConverter}}"
                        Grid.Row="0"/>
 
                 <Frame Style="{StaticResource MessageCountContainerStyle}"
-                       IsVisible="{Binding MessageCount, Converter={converters:MessageCountConverter}}"
+                       IsVisible="{Binding Chat.Name, Converter={converters:MessageCountConverter}}"
                        Grid.Row="1">
 
                     <Label Style="{StaticResource MessageCountStyle}"
-                           Text="{Binding MessageCount}"
+                           Text="{Binding Chat.Name}"
                         />
 
-                </Frame>-->
+                </Frame>
             </Grid>
         </Grid>
     </VerticalStackLayout>

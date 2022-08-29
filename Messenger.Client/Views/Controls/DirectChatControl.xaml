@@ -2,9 +2,9 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Messenger.Client.Views.Converters"
-             xmlns:models="clr-namespace:Messenger.Domains.Models;assembly=Messenger.Domains"
+             xmlns:models="clr-namespace:Messenger.Domains.Dtos.ChatUser;assembly=Messenger.Domains"
              x:Class="Messenger.Client.Views.Controls.DirectChatControl"
-             x:DataType="models:Chat">
+             x:DataType="models:ChatUserChatsReadDto">
 
     <ContentView.Resources>
         <ResourceDictionary>
@@ -39,7 +39,7 @@
                 <Setter Property="FontFamily" Value="InterMedium" />
                 <Setter Property="FontSize" Value="11" />
                 <Setter Property="LineBreakMode" Value="TailTruncation" />
-                <Setter Property="Margin" Value="0, 2, 0, 0" />
+                <Setter Property="Margin" Value="0, 5, 0, 0" />
             </Style>
 
             <Style x:Key="OnlineStatusStyle" TargetType="Ellipse">
@@ -83,47 +83,42 @@
 
     <VerticalStackLayout>
         <Grid Style="{StaticResource MessageContainer}"
-              ColumnDefinitions="40, 160, *">
-             <!--// Avatar //--> 
+              ColumnDefinitions="40, 160, *"
+              RowDefinitions="*, *">
+
+            <!--// Avatar //-->
             <Grid>
 
-                <Frame
-                    Style="{StaticResource AvatarFrameStyle}">
-                    <!--<CollectionView ItemsSource="{Binding Users}">-->
-                    <CollectionView>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="{x:Type models:User}">
-                                <Image Source="{Binding Photo}"
-                                       Aspect="AspectFill"/>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                <Frame Style="{StaticResource AvatarFrameStyle}">
+                    
+                    <Image Source="{Binding Chat.Photo}"
+                           Aspect="AspectFill"/>
                 </Frame>
 
-                <Ellipse 
-                    Style="{StaticResource OnlineStatusStyle}">
-                </Ellipse>
+                <Ellipse Style="{StaticResource OnlineStatusStyle}" />
+
             </Grid>
 
-             <!--// SenderInfo //--> 
-            <Grid RowDefinitions="*, *" Grid.Column="1">
-                <StackLayout
-                    Style="{StaticResource InitialsContainer}">
-
-                    
+            <!--// SenderInfo //-->
+            <Grid RowDefinitions="*, *" 
+                  Grid.Column="1" 
+                  VerticalOptions="Center">
+                
+                <StackLayout Style="{StaticResource InitialsContainer}">
 
                     <Label 
                         Style="{StaticResource InitialsLabelStyle}"
                         Text="{Binding ., Converter={converters:InitialsChatConverter}}"/>
+
                 </StackLayout>
 
-                <!--<Label 
+                <Label 
                     Grid.Row="1"
                     Style="{StaticResource MessageContentStyle}"
-                    Text="{Binding LastMessage}"/>-->
+                    Text="{Binding Chat.Name}"/>
             </Grid>
-            
-             <!--// Message info //-->
+
+            <!--// Message info //-->
             <Grid 
                 RowDefinitions="*, *" 
                 Margin="0, 0, 18, 0"

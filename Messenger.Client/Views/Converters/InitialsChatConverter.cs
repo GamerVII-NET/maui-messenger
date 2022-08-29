@@ -1,10 +1,5 @@
-﻿using Messenger.Domains.Models;
-using System;
-using System.Collections.Generic;
+﻿using Messenger.Domains.Dtos.ChatUser;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Client.Views.Converters
 {
@@ -14,17 +9,11 @@ namespace Messenger.Client.Views.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var chat = value as Chat;
+            var chat = value as ChatUserChatsReadDto;
 
             if (chat == null) { return null; }
 
-            //if (chat.Users.Count() == 2)
-            //{
-            //    var sender = chat.Users.FirstOrDefault();
-            //    return $"{sender.LastName} {sender.FirstName}";
-            //}
-
-            return null;
+            return chat.Chat.Name;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,13 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Enums;
-using Messenger.Domains.Models;
-using System;
-using System.Collections.Generic;
+﻿using Enums;
+using Messenger.Domains.Dtos.ChatUser;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Client.Views.Converters
 {
@@ -17,12 +11,10 @@ namespace Messenger.Client.Views.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //var chatModels = value as ObservableCollection<ChatModel>;
-            //var chatType = (MessageType)int.Parse(parameter.ToString());
+            var chatModels = value as ObservableCollection<ChatUserChatsReadDto>;
+            var chatType = (ChatType)int.Parse(parameter.ToString());
 
-            //return chatModels.Where(c => c.MessageType == chatType);
-
-            return null;
+            return chatModels.Where(c => c.Chat.Type == chatType);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

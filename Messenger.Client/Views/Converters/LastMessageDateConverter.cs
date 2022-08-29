@@ -9,6 +9,9 @@ namespace Messenger.Client.Views.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+
+            return null;
+
             var time = DateTime.Parse(value.ToString());
 
             if (DateTime.Now.ToString("dd.MM.yyyy") == time.ToString("dd.MM.yyyy"))

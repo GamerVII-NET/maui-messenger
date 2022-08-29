@@ -1,4 +1,5 @@
-﻿using Messenger.Domains.Models;
+﻿using Messenger.Domains.Dtos.User;
+using Messenger.Domains.Models;
 using System.Net.Http.Json;
 
 namespace Messenger.Client.Services
@@ -8,7 +9,7 @@ namespace Messenger.Client.Services
         internal static async Task<HttpResponseMessage> AuthAsync(string login, string password)
         {
 
-            User user = new User
+            var user = new UserAuthDto
             {
                 UserName = login,
                 Password = password
@@ -19,8 +20,6 @@ namespace Messenger.Client.Services
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync("http://localhost:5064/api/v1/auth", content);
-
-                var data = await response.Content.ReadAsStringAsync();
 
                 return response;
             }

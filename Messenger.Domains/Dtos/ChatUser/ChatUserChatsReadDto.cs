@@ -1,5 +1,4 @@
 ﻿using Messenger.Domains.Dtos.Chat;
-using Messenger.Domains.Dtos.User;
 using Messenger.Domains.Enums;
 
 namespace Messenger.Domains.Dtos.ChatUser

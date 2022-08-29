@@ -1,4 +1,5 @@
-﻿using Messenger.Domains.Models;
+﻿using Messenger.Domains.Dtos.ChatUser;
+using Messenger.Domains.Models;
 
 namespace Messenger.Client.Views.Templates
 {
@@ -9,9 +10,9 @@ namespace Messenger.Client.Views.Templates
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var chat = item as Chat;
+            var chatUser = item as ChatUserChatsReadDto;
 
-            switch (chat.Type)
+            switch (chatUser.Chat.Type)
             {
                 case Enums.ChatType.Conversation: 
                     return GroupMessengerTemplate;
