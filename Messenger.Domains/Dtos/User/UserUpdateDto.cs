@@ -1,6 +1,4 @@
 ﻿using Messenger.Domains.Dtos.Chat;
-using Messenger.Domains.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.Domains.Dtos.User
 {

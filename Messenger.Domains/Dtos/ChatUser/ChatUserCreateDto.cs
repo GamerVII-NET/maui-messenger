@@ -1,4 +1,4 @@
-﻿namespace Messenger.Domains.Dtos.Chat
+﻿namespace Messenger.Domains.Dtos.ChatUser
 {
     public class ChatUserCreateDto
     {

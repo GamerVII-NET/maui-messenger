@@ -1,9 +1,8 @@
 ﻿using Enums;
-using Messenger.Domains.Dtos.ChatUser;
 
 namespace Messenger.Domains.Dtos.Chat
 {
-    public class ChatReadDto
+    public class ChatReadFromUser
     {
         public Guid GlobalGuid { get; set; }
 
@@ -14,7 +13,5 @@ namespace Messenger.Domains.Dtos.Chat
         public string About { get; set; }
 
         public ChatType Type { get; set; }
-
-        public List<ChatUserReadDto> Users { get; set; }
     }
 }

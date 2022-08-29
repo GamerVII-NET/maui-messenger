@@ -1,4 +1,6 @@
-﻿namespace Messenger.Server.Repositories.ChatRepository
+﻿using Messenger.Domains.Enums;
+
+namespace Messenger.Server.Repositories.ChatRepository
 {
     public interface IChatRepository
     {
@@ -10,7 +12,7 @@
 
         Task<Chat?> CreateChat(User unviter, Chat chat, IEnumerable<User> user);
 
-        Task<Chat?> AddUserToChat(User user, Chat chat);
+        Task<Chat?> AddUserToChat(User user, Chat chat, User inviter = null, ChatRole chatRole = ChatRole.Default);
 
         Task<Chat> UpdateChat(Chat chat);
 

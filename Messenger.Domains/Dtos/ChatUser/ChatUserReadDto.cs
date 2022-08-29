@@ -1,9 +1,7 @@
 ﻿using Messenger.Domains.Dtos.User;
 using Messenger.Domains.Enums;
-using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
 
-namespace Messenger.Domains.Dtos.Chat
+namespace Messenger.Domains.Dtos.ChatUser
 {
     public class ChatUserReadDto
     {

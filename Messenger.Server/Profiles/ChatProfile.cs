@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Messenger.Domains.Dtos.Chat;
+using Messenger.Domains.Dtos.ChatUser;
 
 namespace Messenger.Server.Profiles
 {
@@ -11,6 +12,8 @@ namespace Messenger.Server.Profiles
             CreateMap<ChatNewDto, Chat>();
             CreateMap<ChatConnectDto, Chat>();
             CreateMap<ChatUser, ChatUserReadDto>();
+            CreateMap<ChatUser, ChatUserChatsReadDto>();
+            CreateMap<Chat, ChatReadFromUser>();
         }
     }
 }

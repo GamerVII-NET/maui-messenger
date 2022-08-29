@@ -1,4 +1,5 @@
-﻿using Messenger.Domains.Models;
+﻿using Messenger.Domains.Enums;
+using Messenger.Domains.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Messenger.Server.Repositories.ChatRepository
             return await _context.Chats!.ToListAsync();
         }
 
-        public async Task<Chat?> AddUserToChat(User user, Chat chat)
+        public async Task<Chat?> AddUserToChat(User user, Chat chat, User inviter = null, ChatRole chatRole = ChatRole.Default)
         {
             if (user == null)
             {
@@ -61,6 +62,13 @@ namespace Messenger.Server.Repositories.ChatRepository
             var newUserChatModel = await _context.AddAsync(chatUser);
 
             newUserChatModel.Entity.User = user;
+            newUserChatModel.Entity.UserRole = chatRole;
+
+            if (inviter != null)
+            {
+                var inviterModel = user = await _context.Users.FirstOrDefaultAsync(c => c.GlobalGuid == inviter.GlobalGuid);
+                newUserChatModel.Entity.InviterUser = inviterModel;
+            }
 
             var chatModel = _context.Update(checkChat);
 
@@ -98,8 +106,10 @@ namespace Messenger.Server.Repositories.ChatRepository
 
                     foreach (var user in users)
                     {
-                        chat = await AddUserToChat(user, chatModel.Entity);
+                        await AddUserToChat(user, chatModel.Entity, inviter);
                     }
+
+                    chat = await AddUserToChat(inviter, chatModel.Entity, chatRole: ChatRole.Author);
 
                     break;
 
@@ -110,9 +120,9 @@ namespace Messenger.Server.Repositories.ChatRepository
                         throw new Exception("No end user specified");
                     }
 
-                    await AddUserToChat(users.FirstOrDefault(), chatModel.Entity);
+                    await AddUserToChat(users.FirstOrDefault(), chatModel.Entity, inviter);
 
-                    chat = await AddUserToChat(inviter, chatModel.Entity);
+                    chat = await AddUserToChat(inviter, chatModel.Entity, chatRole: ChatRole.Author);
 
                     break;
 

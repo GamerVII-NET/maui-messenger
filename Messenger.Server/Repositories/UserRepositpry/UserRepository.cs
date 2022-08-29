@@ -56,7 +56,10 @@ namespace Messenger.Server.Repositories.UserRepository
 
         public async Task<User?> GetUserByGuidAsync(Guid guid)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.GlobalGuid == guid);
+            return await _context.Users
+                .Include(c => c.UserChats)
+                .ThenInclude(c => c.Chat)
+                .FirstOrDefaultAsync(x => x.GlobalGuid == guid);
         }
 
         public async Task<User?> GetUserByUserNameAsync(string userName)
