@@ -9,9 +9,11 @@ namespace Messenger.Server.Profiles
         public UserProfile()
         {
             CreateMap<User, UserReadDto>();
+            CreateMap<User, UserReadResponse>();
             CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
             CreateMap<ChatUserCreateDto, User>();
+            CreateMap<UserConnectDto, User>();
         }
     }
 }

@@ -2,5 +2,5 @@
 {
     string BuildToken(string key, string issuer, User user);
 
-    bool VerifyToken(string key, string issuer, string token, string userName);
+    bool VerifyToken(WebApplicationBuilder builder, HttpContext context, User user);
 }

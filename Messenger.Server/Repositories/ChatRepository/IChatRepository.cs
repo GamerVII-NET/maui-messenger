@@ -4,11 +4,11 @@
     {
         Task SaveChanges();
 
-        Task<Chat?> GetChatByGuid(Guid guid);
+        Task<Chat?> GetChatByGuidAsync(Guid guid);
 
         Task<Chat?> SearchChatByName(string name);
 
-        Task<Chat?> CreateChat(User user, Chat chat);
+        Task<Chat?> CreateChat(User unviter, Chat chat, IEnumerable<User> user);
 
         Task<Chat?> AddUserToChat(User user, Chat chat);
 
@@ -18,5 +18,6 @@
 
         void DeleteChat(Chat chat);
 
+        Task<Chat?> ExitUserFromChat(User userModel, Chat chatModel);
     }
 }

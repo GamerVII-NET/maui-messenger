@@ -1,7 +1,4 @@
-﻿using Messenger.Domains.Dtos;
-using Microsoft.IdentityModel.Tokens;
-using NuGet.Common;
-using System.Security.Principal;
+﻿using Microsoft.Net.Http.Headers;
 
 public class TokenService : ITokenService
 {
@@ -9,7 +6,8 @@ public class TokenService : ITokenService
     {
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, user.UserName)
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.NameIdentifier, user.GlobalGuid.ToString())
         };
 
         var auidience = string.Concat(issuer);
@@ -24,9 +22,14 @@ public class TokenService : ITokenService
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
     }
 
-    public bool VerifyToken(string key, string issuer, string token, string userName)
+    public bool VerifyToken(WebApplicationBuilder builder, HttpContext context, User user)
     {
-        if (string.IsNullOrEmpty(userName))
+        string key = builder.Configuration["Jwt:Key"];
+        string issuer = builder.Configuration["Jwt:Issuer"];
+        string token = context.Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+
+        if (string.IsNullOrEmpty(user.UserName) &&
+            string.IsNullOrEmpty(user.GlobalGuid.ToString()))
             return false;
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -62,16 +65,22 @@ public class TokenService : ITokenService
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, userName)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.GlobalGuid.ToString())
             };
 
             var securityToken = (validatedToken as JwtSecurityToken);
 
             if (securityToken == null) { return false; }
 
-            var claim = securityToken.Claims.FirstOrDefault(c => c.Value == userName);
+            var claimUser = securityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            var claimGuid = securityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
-            if (claim != null) { return true; }
+            if (claimUser!.Value == user.UserName &&
+                claimGuid!.Value == user.GlobalGuid.ToString())
+            {
+                return true;
+            }
 
         }
 

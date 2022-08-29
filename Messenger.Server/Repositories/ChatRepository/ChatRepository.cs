@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Messenger.Domains.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +37,18 @@ namespace Messenger.Server.Repositories.ChatRepository
 
             var checkChat = await _context.Chats
                 .Include(c => c.Users)
+                .ThenInclude(c => c.User)
                 .FirstOrDefaultAsync(c => c.GlobalGuid == chat.GlobalGuid);
-                
+
             if (checkChat == null) { return null; }
 
             var checkUserInChat = checkChat.Users.FirstOrDefault(c => c.User.GlobalGuid == user.GlobalGuid);
 
-            if (checkUserInChat != null) { return checkChat; }
+            if (checkUserInChat != null)
+            {
+                checkUserInChat.Deleted = false;
+                return checkChat;
+            }
 
             user = await _context.Users.FirstOrDefaultAsync(c => c.GlobalGuid == user.GlobalGuid);
 
@@ -50,14 +56,11 @@ namespace Messenger.Server.Repositories.ChatRepository
             {
                 Chat = chat,
                 UserRole = Domains.Enums.ChatRole.Default
-
             };
 
             var newUserChatModel = await _context.AddAsync(chatUser);
 
             newUserChatModel.Entity.User = user;
-
-            chat.Users.Add(newUserChatModel.Entity);
 
             var chatModel = _context.Update(checkChat);
 
@@ -69,23 +72,55 @@ namespace Messenger.Server.Repositories.ChatRepository
             return chatModel.Entity;
         }
 
-        public async Task<Chat?> CreateChat(User user, Chat chat)
+        public async Task<Chat?> CreateChat(User inviter, Chat chat, IEnumerable<User> users)
         {
-            if (user == null)
+            if (users == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException(nameof(users));
             }
 
             if (chat == null)
             {
                 throw new ArgumentNullException(nameof(chat));
             }
-            
+
             var chatModel = await _context.Chats.AddAsync(chat);
 
             await _context.SaveChangesAsync();
 
-            return await AddUserToChat(user, chatModel.Entity);
+            switch (chat.Type)
+            {
+                case Enums.ChatType.Conversation:
+                    if (users.Count() < 1)
+                    {
+                        throw new Exception("No end users specified");
+                    }
+
+                    foreach (var user in users)
+                    {
+                        chat = await AddUserToChat(user, chatModel.Entity);
+                    }
+
+                    break;
+
+                case Enums.ChatType.Direct:
+
+                    if (users.Count() != 1)
+                    {
+                        throw new Exception("No end user specified");
+                    }
+
+                    await AddUserToChat(users.FirstOrDefault(), chatModel.Entity);
+
+                    chat = await AddUserToChat(inviter, chatModel.Entity);
+
+                    break;
+
+                case Enums.ChatType.Channel:
+                    break;
+            }
+
+            return chat;
 
         }
 
@@ -94,9 +129,9 @@ namespace Messenger.Server.Repositories.ChatRepository
             throw new NotImplementedException();
         }
 
-        public Task<Chat?> GetChatByGuid(Guid guid)
+        public async Task<Chat?> GetChatByGuidAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            return await _context.Chats.FirstOrDefaultAsync(c => c.GlobalGuid == guid);
         }
 
         public async Task SaveChanges()
@@ -112,6 +147,34 @@ namespace Messenger.Server.Repositories.ChatRepository
         public Task<Chat> UpdateChat(Chat chat)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Chat?> ExitUserFromChat(User user, Chat chat)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (chat == null)
+            {
+                throw new ArgumentNullException(nameof(chat));
+            }
+
+            var checkChat = await _context.Chats
+                .Include(c => c.Users)
+                .ThenInclude(c => c.User)
+                .FirstOrDefaultAsync(c => c.GlobalGuid == chat.GlobalGuid);
+
+            if (checkChat == null) { return null; }
+
+            var checkUserInChat = checkChat.Users.FirstOrDefault(c => c.User.GlobalGuid == user.GlobalGuid);
+
+            if (checkUserInChat == null) { return checkChat; }
+
+            checkUserInChat.Deleted = true;
+
+            return checkChat;
         }
     }
 }

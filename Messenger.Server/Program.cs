@@ -1,11 +1,14 @@
 using AutoMapper;
 using Messenger.Domains.Dtos.Chat;
+using Messenger.Domains.Dtos.Links;
 using Messenger.Domains.Dtos.User;
 using Messenger.Server.Extensions;
 using Messenger.Server.Helpers;
 using Messenger.Server.Repositories.ChatRepository;
 using Messenger.Server.Repositories.UserRepository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,3 +51,4 @@ ServicesManager.InitServices(builder, app);
 app.MapGet("/", () => Results.Extensions.Html(@"HelloMessenger</br><a href=""/swagger/"">Swagger</a>"));
 
 app.Run();
+

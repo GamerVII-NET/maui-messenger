@@ -14,5 +14,7 @@ namespace Messenger.Domains.Dtos.Chat
         public string About { get; set; }
 
         public ChatType Type { get; set; }
+
+        public List<ChatUserReadDto> Users { get; set; }
     }
 }

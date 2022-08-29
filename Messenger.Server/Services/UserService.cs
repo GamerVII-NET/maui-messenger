@@ -35,7 +35,7 @@ namespace Messenger.Server.Services
 
                 if (checkUser != null)
                 {
-                    return Results.Conflict();
+                    return Results.Conflict(new { Message = "An account with such data has already been registered" });
                 }
 
                 userModel = await repository.CreateUserAsync(userModel);
@@ -52,12 +52,7 @@ namespace Messenger.Server.Services
             {
                 var userModel = mapper.Map<User>(user);
 
-                var isCurrentUser = tokenService.VerifyToken(
-                    builder.Configuration["Jwt:Key"],
-                    builder.Configuration["Jwt:Issuer"],
-                    context.Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", ""),
-                    userModel.UserName
-                    );
+                var isCurrentUser = tokenService.VerifyToken( builder, context, userModel );
 
                 if (isCurrentUser == false) { return Results.Unauthorized(); }
 

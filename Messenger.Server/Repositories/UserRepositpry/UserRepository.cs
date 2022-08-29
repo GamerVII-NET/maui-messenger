@@ -83,8 +83,10 @@ namespace Messenger.Server.Repositories.UserRepository
             userModel.UserName = user.UserName;
             userModel.FirstName = user.FirstName;
             userModel.LastName = user.LastName;
+            userModel.Photo = user.Photo;
             userModel.Patronymic = user.Patronymic;
             userModel.Password = user.Password;
+            userModel.LastOnline = DateTime.Now;
 
             return userModel;
         }
