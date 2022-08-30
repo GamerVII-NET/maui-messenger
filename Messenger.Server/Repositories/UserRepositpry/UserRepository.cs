@@ -59,6 +59,7 @@ namespace Messenger.Server.Repositories.UserRepository
             return await _context.Users
                 .Include(c => c.UserChats)
                 .ThenInclude(c => c.Chat)
+                .ThenInclude(c => c.Messages)
                 .FirstOrDefaultAsync(x => x.GlobalGuid == guid);
         }
 

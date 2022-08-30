@@ -22,6 +22,7 @@ namespace Messenger.Domains.Models
         public ChatType Type { get; set; }
 
         public List<ChatUser> Users { get; set; } = new List<ChatUser>();
+
         public List<Message> Messages { get; set; } = new List<Message>();
 
 

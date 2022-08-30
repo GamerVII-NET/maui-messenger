@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Messenger.Domains.Dtos.Messages;
 
 namespace Messenger.Domains.Dtos.Chat
 {
@@ -13,5 +14,7 @@ namespace Messenger.Domains.Dtos.Chat
         public string About { get; set; }
 
         public ChatType Type { get; set; }
+
+        public List<MessageChatReadDto> Messages { get; set; }
     }
 }
