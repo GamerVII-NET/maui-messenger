@@ -1,6 +1,6 @@
 ﻿namespace Messenger.Domains.Dtos.User
 {
-    public class UserReadResponse
+    public class UserReadResponseDto
     {
 
         public Guid GlobalGuid { get; set; }

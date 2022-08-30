@@ -34,10 +34,8 @@ namespace Messenger.Client.ViewModels
         {
             await Task.Run(async () =>
             {
-                _user = await UserService.GetUserInfo(Preferences.Get("Token", ""), Preferences.Get("UserGuid", ""));
-                _chats = new ObservableCollection<ChatUserChatsReadDto>(_user.UserChats);
-                OnPropertyChanged("User");
-                OnPropertyChanged("Chats");
+                User = await UserService.GetUserInfo(Preferences.Get("Token", ""), Preferences.Get("UserGuid", ""));
+                Chats = new ObservableCollection<ChatUserChatsReadDto>(User.UserChats);
             });
         }
 

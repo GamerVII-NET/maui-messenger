@@ -5,7 +5,7 @@ namespace Messenger.Domains.Dtos.ChatUser
 {
     public class ChatUserChatsReadDto
     {
-        public ChatReadFromUser Chat { get; set; }
+        public ChatReadFromUserDto Chat { get; set; }
 
         public Guid GlobalGuid { get; set; }
 

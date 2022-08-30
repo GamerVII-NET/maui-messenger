@@ -49,11 +49,11 @@
         <DataTemplate x:Key="DirectMessageTemplate">
             <controls:DirectChatControl>
 
-                <controls:DirectChatControl.GestureRecognizers>
+                <!--<controls:DirectChatControl.GestureRecognizers>
                     <ClickGestureRecognizer 
                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DashboardPageViewModel}}, Path=LoadInfoByChatModel}"
                         CommandParameter="{Binding}"/>
-                </controls:DirectChatControl.GestureRecognizers>
+                </controls:DirectChatControl.GestureRecognizers>-->
 
 
             </controls:DirectChatControl>

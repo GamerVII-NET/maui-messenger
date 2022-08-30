@@ -13,7 +13,7 @@ namespace Messenger.Server.Profiles
             CreateMap<ChatConnectDto, Chat>();
             CreateMap<ChatUser, ChatUserReadDto>();
             CreateMap<ChatUser, ChatUserChatsReadDto>();
-            CreateMap<Chat, ChatReadFromUser>();
+            CreateMap<Chat, ChatReadFromUserDto>();
         }
     }
 }

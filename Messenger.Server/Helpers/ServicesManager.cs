@@ -19,6 +19,9 @@ namespace Messenger.Server.Helpers
             app.MapPost("/api/v1/chats/join", ChatService.JoinToChat(builder));
             app.MapPost("/api/v1/chats/exit", ChatService.ExitFromChat(builder));
 
+            app.MapPost("/api/v1/messages/send", MessageService.SendMessage(builder));
+            app.MapPut("/api/v1/messages", MessageService.EditMessage(builder));
+
 
         }
     }

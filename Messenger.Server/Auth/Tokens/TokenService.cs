@@ -63,11 +63,11 @@ public class TokenService : ITokenService
 
         if (validatedToken != null)
         {
-            var claims = new[]
+/*            var claims = new[]
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.GlobalGuid.ToString())
-            };
+            };*/
 
             var securityToken = (validatedToken as JwtSecurityToken);
 

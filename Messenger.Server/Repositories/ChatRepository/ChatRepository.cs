@@ -1,17 +1,10 @@
 ﻿using Messenger.Domains.Enums;
-using Messenger.Domains.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Server.Repositories.ChatRepository
 {
     public class ChatRepository : IChatRepository
     {
-
         private readonly DataBaseContext _context;
 
         public ChatRepository(DataBaseContext context)

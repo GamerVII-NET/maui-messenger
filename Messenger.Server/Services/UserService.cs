@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Messenger.Domains.Dtos.User;
 using Messenger.Server.Repositories.UserRepository;
-using Microsoft.Net.Http.Headers;
 
 namespace Messenger.Server.Services
 {

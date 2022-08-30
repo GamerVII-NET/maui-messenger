@@ -15,17 +15,20 @@ namespace Messenger.Domains.Models
         [Key]
         public Guid GlobalGuid { get; set; }
 
-        public Guid SenderGuid { get; set; }
+        public User Sender { get; set; }
 
         public Message? ReplyTo { get; set; }
 
         public Chat Chat { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public bool IsDeleted { get; set; } = false;
+
+        public DateTime? UpdatedAt { get; set; }
 
         public DateTime SendingTime { get; set; }
 
         public List<Attachment> Attachments { get; set; } = new List<Attachment>();
 
+        public string Text { get; set; }
     }
 }

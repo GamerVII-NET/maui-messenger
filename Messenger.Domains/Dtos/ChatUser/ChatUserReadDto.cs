@@ -5,11 +5,11 @@ namespace Messenger.Domains.Dtos.ChatUser
 {
     public class ChatUserReadDto
     {
-        public UserReadResponse User { get; set; }
+        public UserReadResponseDto User { get; set; }
 
         public Guid GlobalGuid { get; set; }
 
-        public UserReadResponse InviterUser { get; set; }
+        public UserReadResponseDto InviterUser { get; set; }
 
         public bool Deleted { get; set; } = false;
 
