@@ -20,7 +20,7 @@ namespace Messenger.Client.ViewModels
         ObservableCollection<ChatUserChatsReadDto> _chats = new ObservableCollection<ChatUserChatsReadDto>();
 
         [ObservableProperty]
-        Chat _selectedChat;
+        ChatUserChatsReadDto _selectedChat = null;
 
         [ObservableProperty]
         UserReadDto _user = null;
@@ -49,6 +49,12 @@ namespace Messenger.Client.ViewModels
         async Task LoadInfoByChatModel(Chat chatModel)
         {
 
+        }
+
+        [RelayCommand]
+        async Task ChooseMessageChat(ChatUserChatsReadDto chat)
+        {
+            SelectedChat = chat;
         }
 
     }

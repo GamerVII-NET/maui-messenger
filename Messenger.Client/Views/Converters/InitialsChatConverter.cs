@@ -9,6 +9,7 @@ namespace Messenger.Client.Views.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+
             var chat = value as ChatUserChatsReadDto;
 
             if (chat == null) { return null; }

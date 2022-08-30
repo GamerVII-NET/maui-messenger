@@ -12,6 +12,7 @@
             <Style x:Key="MessageContainer" TargetType="Grid">
                 <Setter Property="Margin" Value="0, 0, 0, 20" />
                 <Setter Property="ColumnSpacing" Value="8" />
+                <Setter Property="Background" Value="Transparent" />
             </Style>
 
             <Style x:Key="AvatarFrameStyle" TargetType="Frame">
